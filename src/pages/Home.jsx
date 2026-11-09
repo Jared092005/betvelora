@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import GameCarousel from '../components/GameCarousel'
 import { homeGameSections } from '../data/homeGames'
@@ -25,9 +25,32 @@ function promoSlideStyle(index, activePromo) {
 
 export default function Home() {
   const [activePromo, setActivePromo] = useState(0)
+  const [promoTick, setPromoTick] = useState(0)
 
-  const goToPromo = (index) =>
+  const goToPromo = (index) => {
     setActivePromo(((index % PROMO_SLIDES) + PROMO_SLIDES) % PROMO_SLIDES)
+    setPromoTick((tick) => tick + 1)
+  }
+
+  // Deslizar con el dedo en móvil y tablet
+  const touchStart = useRef({ x: 0, y: 0, active: false })
+
+  const handlePromoTouchStart = (event) => {
+    const touch = event.touches[0]
+    touchStart.current = { x: touch.clientX, y: touch.clientY, active: true }
+  }
+
+  const handlePromoTouchEnd = (event) => {
+    if (!touchStart.current.active) return
+    const touch = event.changedTouches[0]
+    const dx = touch.clientX - touchStart.current.x
+    const dy = touch.clientY - touchStart.current.y
+    touchStart.current.active = false
+
+    // solo gestos claramente horizontales
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return
+    goToPromo(activePromo + (dx < 0 ? 1 : -1))
+  }
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
@@ -36,7 +59,7 @@ export default function Home() {
       PROMO_INTERVAL_MS,
     )
     return () => clearInterval(timer)
-  }, [])
+  }, [promoTick])
 
   return (
     <div className="text-slate-200 font-sans antialiased selection:bg-velora-red selection:text-white min-h-screen flex flex-col" style={{ backgroundColor: '#000000' }}>
@@ -66,7 +89,12 @@ export default function Home() {
       <section className="relative overflow-hidden border-b border-velora-borderSubtle bg-gradient-to-r from-[#0C0E17] via-[#151221] to-[#0A0C13]" id="hero-promo-carousel">
       <div className="max-w-[1920px] mx-auto px-4 lg:px-8 py-6 relative group">
 
-      <div className="relative overflow-hidden rounded-2xl min-h-[220px] border border-white/10 shadow-2xl backdrop-blur-md">
+      <div
+      className="relative overflow-hidden rounded-2xl min-h-[220px] border border-white/10 shadow-2xl backdrop-blur-md"
+      onTouchStart={handlePromoTouchStart}
+      onTouchEnd={handlePromoTouchEnd}
+      style={{ touchAction: 'pan-y' }}
+      >
 
       <div className="grid overflow-hidden">
 
@@ -160,7 +188,7 @@ export default function Home() {
       <a className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group" href="#">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-chart-line text-blue-400 w-4 text-center"></i>
-      <span className="">Crash &amp; Instant</span>
+      <span className="">Crash Games</span>
       </div>
       <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">38</span>
       </a>
@@ -282,6 +310,19 @@ export default function Home() {
       </div>
 
       <GameCarousel games={homeGameSections.slots} label="juegos de slots" />
+      </section>
+
+      <section data-purpose="crash-games-section">
+      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center gap-3">
+      <div className="w-2.5 h-6 bg-velora-gold rounded-full shadow-glow-gold"></div>
+      <h2 className="font-cinzel text-xl font-bold uppercase tracking-wider text-white">Crash Games</h2>
+      <span className="text-xs text-slate-400 font-medium">Instant wins &amp; multipliers</span>
+      </div>
+      <Link to="/crash-games" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link>
+      </div>
+
+      <GameCarousel games={homeGameSections.crashGames} label="juegos crash" />
       </section>
 
       <section data-purpose="live-casino-section">

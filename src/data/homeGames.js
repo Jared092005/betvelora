@@ -198,6 +198,80 @@ export const homeGameSections = {
     "image": "/screens/casino/c802e26d0742.jpg"
   }
 ],
+  crashGames: [
+    {
+      "id": "aviator",
+      "name": "Aviator",
+      "provider": "Spribe",
+      "image": "/screens/casino/2154e07e214b.jpg"
+    },
+    {
+      "id": "crash-royale",
+      "name": "Crash Royale",
+      "provider": "Smartsoft",
+      "image": "/screens/casino/846383f6b97b.jpg"
+    },
+    {
+      "id": "jetx",
+      "name": "JetX",
+      "provider": "Smartsoft",
+      "image": "/screens/casino/4f5ec0104cb2.jpg"
+    },
+    {
+      "id": "mines",
+      "name": "Mines",
+      "provider": "BGaming",
+      "image": "/screens/casino/9999ef74087a.jpg"
+    },
+    {
+      "id": "plinko",
+      "name": "Plinko",
+      "provider": "BGaming",
+      "image": "/screens/casino/796042ea2c3c.jpg"
+    },
+    {
+      "id": "spaceman",
+      "name": "Spaceman",
+      "provider": "Pragmatic Play",
+      "image": "/screens/casino/0dd30c740be0.jpg"
+    },
+    {
+      "id": "limbo",
+      "name": "Limbo",
+      "provider": "BGaming",
+      "image": "/screens/casino/8e9e7e87de7d.jpg"
+    },
+    {
+      "id": "keno",
+      "name": "Keno",
+      "provider": "1x2 Gaming",
+      "image": "/screens/casino/9932903d3cfa.jpg"
+    },
+    {
+      "id": "goal-mine",
+      "name": "Goal Mine",
+      "provider": "Smartsoft",
+      "image": "/screens/casino/c22f51178487.jpg"
+    },
+    {
+      "id": "rocket-crash",
+      "name": "Rocket Crash",
+      "provider": "Turbo Games",
+      "image": "/screens/casino/68b99a39688f.jpg"
+    },
+    {
+      "id": "double-x",
+      "name": "Double X",
+      "provider": "Hacksaw",
+      "image": "/screens/casino/1b5be7fd03d6.jpg"
+    },
+    {
+      "id": "balloon",
+      "name": "Balloon",
+      "provider": "Aviatrix",
+      "image": "/screens/casino/2817d5f54810.jpg"
+    }
+  ],
 }
 
 export default homeGameSections

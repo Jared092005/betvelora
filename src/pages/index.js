@@ -1,5 +1,6 @@
 export { default as Home } from './Home.jsx'
 export { default as Casino } from './Casino.jsx'
+export { default as CrashGames } from './CrashGames.jsx'
 export { default as CasinoLive } from './CasinoLive.jsx'
 export { default as Poker } from './Poker.jsx'
 export { default as Virtual } from './Virtual.jsx'

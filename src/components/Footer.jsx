@@ -6,6 +6,7 @@ const casinoLinks = [
   { name: 'My Favorites', to: '/casino' },
   { name: 'New Games', to: '/casino' },
   { name: 'Popular Games', to: '/casino' },
+  { name: 'Crash Games', to: '/crash-games' },
 ]
 
 const paymentMethods = [

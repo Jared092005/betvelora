@@ -3,6 +3,7 @@ import { Layout } from './components'
 import {
   Home,
   Casino,
+  CrashGames,
   CasinoLive,
   Poker,
   Virtual,
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/casino" element={<Casino />} />
+        <Route path="/crash-games" element={<CrashGames />} />
         <Route path="/casino-live" element={<CasinoLive />} />
         <Route path="/poker" element={<Poker />} />
         <Route path="/virtual" element={<Virtual />} />

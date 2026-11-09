@@ -8,6 +8,7 @@ const navItems = [
   { name: 'Home', to: '/', icon: 'fa-house', end: true },
   { name: 'Casino', to: '/casino', icon: 'fa-dice' },
   { name: 'Casino Live', to: '/casino-live', icon: 'fa-video' },
+  { name: 'Crash Games', to: '/crash-games', icon: 'fa-rocket' },
   { name: 'Poker', to: '/poker', isSvg: true },
   { name: 'Virtual', to: '/virtual', icon: 'fa-gamepad' },
   { name: 'Promotions', to: '/promotions', icon: 'fa-gift' },
@@ -232,7 +233,9 @@ export default function Header() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-50 flex flex-col justify-start bg-black/80 p-6 backdrop-blur-md transition-all duration-300 lg:hidden">
           <div className="flex items-center justify-between border-b border-velora-borderSubtle pb-6">
-            <img alt="Velora Casino" className="h-10 w-auto" src={logo} />
+            <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="inline-flex">
+              <img alt="Velora Casino" className="h-10 w-auto" src={logo} />
+            </NavLink>
             <button
               aria-label="Close Menu"
               className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-colors hover:text-white"
