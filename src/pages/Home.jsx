@@ -288,7 +288,7 @@ export default function Home() {
       <div className="flex items-center justify-between mb-5"><div className="flex items-center gap-3">
       <div className="w-2.5 h-6 bg-velora-red rounded-full shadow-[0_0_12px_rgba(229,9,20,0.6)]"></div>
       <h2 className="font-cinzel text-xl font-bold uppercase tracking-wider text-white">Casino Live</h2>
-      <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-velora-red/10 border border-velora-red/30 text-[10px] text-velora-red font-bold">
+      <div className="hidden items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-velora-red/10 border border-velora-red/30 text-[10px] text-velora-red font-bold lg:flex">
       <span className="w-2 h-2 rounded-full bg-velora-red animate-pulse"></span>
       <span className="">128 DEALERS ACTIVE</span>
       </div>

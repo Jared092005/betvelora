@@ -12,7 +12,7 @@ export default function GameCard({ game, badge, onPlay }) {
 
   return (
     <article
-      className="game-card-wrapper group flex flex-col"
+      className="game-card-wrapper group flex flex-col transition-transform duration-150 ease-out max-lg:active:scale-90"
       onClick={(event) => event.preventDefault()}
     >
       {/* Portada */}
