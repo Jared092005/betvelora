@@ -11,7 +11,10 @@ export default function GameCard({ game, badge, onPlay }) {
   const badgeLabel = badge ?? game.badge
 
   return (
-    <article className="game-card-wrapper group flex flex-col">
+    <article
+      className="game-card-wrapper group flex flex-col"
+      onClick={(event) => event.preventDefault()}
+    >
       {/* Portada */}
       <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-[#181a20] shadow-md transition-all duration-300 group-hover:border-velora-goldLight/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
         {badgeLabel && (
@@ -58,8 +61,8 @@ export default function GameCard({ game, badge, onPlay }) {
           />
         </button>
 
-        {/* Overlay con Play Now */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/60 p-3 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+        {/* Overlay con Play Now: solo en desktop (en táctil estorba al deslizar) */}
+        <div className="game-card-overlay pointer-events-none absolute inset-0 hidden flex-col items-center justify-center gap-2 bg-black/60 p-3 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100 lg:flex">
           <button
             type="button"
             onClick={() => onPlay?.(game)}

@@ -184,3 +184,11 @@
 .game-carousel-track::-webkit-scrollbar {
   display: none;
 }
+
+/* En pantallas táctiles el hover se queda "pegado" al deslizar:
+   el botón Play Now no debe aparecer ni siquiera en tablets grandes. */
+@media (hover: none) {
+  .game-card-overlay {
+    display: none !important;
+  }
+}

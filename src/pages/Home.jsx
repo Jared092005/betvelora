@@ -278,7 +278,7 @@ export default function Home() {
       <h2 className="font-cinzel text-xl font-bold uppercase tracking-wider text-white">Slots</h2>
       <span className="text-xs text-slate-400 font-medium">Top performing titles</span>
       </div>
-      <a className="px-3.5 py-1.5 rounded-full bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5" href="#"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[10px]"></i></a>
+      <a className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5" href="#"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></a>
       </div>
 
       <GameCarousel games={homeGameSections.slots} label="juegos de slots" />
@@ -293,7 +293,7 @@ export default function Home() {
       <span className="">128 DEALERS ACTIVE</span>
       </div>
       </div>
-      <Link to="/casino-live" className="px-3.5 py-1.5 rounded-full bg-velora-red/15 border border-velora-red/30 hover:bg-velora-red text-velora-red hover:text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[10px]"></i></Link></div>
+      <Link to="/casino-live" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-red/15 border border-velora-red/30 hover:bg-velora-red text-velora-red hover:text-white text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link></div>
 
       <GameCarousel games={homeGameSections.casinoLive} label="mesas en vivo" />
       </section>
@@ -305,7 +305,7 @@ export default function Home() {
       <h2 className="font-cinzel text-xl font-bold uppercase tracking-wider text-white">New Games</h2>
       <span className="text-xs text-slate-400 font-medium">Premiered this week</span>
       </div>
-      <a className="px-3.5 py-1.5 rounded-full bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5" href="#"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[10px]"></i></a>
+      <a className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5" href="#"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></a>
       </div>
 
       <GameCarousel games={homeGameSections.newGames} label="juegos nuevos" />
