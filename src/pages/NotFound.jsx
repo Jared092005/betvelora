@@ -12,7 +12,7 @@ export default function NotFound() {
           La ruta que buscas no existe o fue movida.
         </p>
         <Link
-          to="/home"
+          to="/"
           className="mt-8 rounded-lg bg-velora-gold px-5 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-900 transition-colors hover:bg-velora-goldLight"
         >
           Volver al inicio

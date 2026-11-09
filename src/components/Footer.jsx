@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import logo from '../assets/logoBetVelora.png'
 
 const casinoLinks = [
   { name: 'My Games', to: '/casino' },
@@ -13,9 +14,6 @@ const paymentMethods = [
   'Bank Transfer',
 ]
 
-const LOGO_SRC =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDZUQW7nnSPhnbbtoZBMBHJZ-SDndtYe_qS72I40rmr0TR35Lo59XLtCWUxRXnBQfmgIZwwqWwBcXgnfrbAdbP5cEqJi35jRS6_iKNhVX0TbBBzonYxCeXGKHIk3X_v00XYsK6hAy7nEOjETZ3od0n4aOoNQxxfUjIb2N4Hrdfl0mkcnkPXOs3nqJe796tx69kcVOnauAOgfMfd4OBv2evWgO3-oi03Jy8mosqTkkOK8veiis0MV5bZASjYxtHDZI2iDA'
-
 export default function Footer() {
   return (
     <footer
@@ -27,8 +25,8 @@ export default function Footer() {
         <div className="mb-6">
           <img
             alt="Velora Casino"
-            className="mb-3 h-6 w-auto object-contain opacity-90"
-            src={LOGO_SRC}
+            className="mb-3 h-8 w-auto object-contain opacity-90"
+            src={logo}
           />
           <p className="text-[12px] tracking-wide text-zinc-400">
             2026 VELORA | All rights reserved.

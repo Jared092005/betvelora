@@ -175,9 +175,12 @@
   }
 }
 
-/* El 5º juego de cada sección de /home solo aparece a partir de xl */
-@media (max-width: 1279.98px) {
-  .xl-only-card {
-    display: none !important;
-  }
+/* El carrusel de juegos de /home oculta su barra de scroll */
+.game-carousel-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.game-carousel-track::-webkit-scrollbar {
+  display: none;
 }

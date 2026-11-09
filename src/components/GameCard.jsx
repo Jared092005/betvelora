@@ -4,15 +4,25 @@ import { useState } from 'react'
  * Card de juego — replica la estructura de la pantalla Casino de Stitch:
  * portada cuadrada, botón de favorito, overlay "Play Now" y pie con título/proveedor.
  */
-export default function GameCard({ game, onPlay }) {
+export default function GameCard({ game, badge, onPlay }) {
   const { name, image, provider } = game
   const [isFavorite, setIsFavorite] = useState(false)
   const initial = (name || '?').trim().charAt(0).toUpperCase()
+  const badgeLabel = badge ?? game.badge
 
   return (
-    <article className="group flex flex-col">
+    <article className="game-card-wrapper group flex flex-col">
       {/* Portada */}
       <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/[0.08] bg-[#181a20] shadow-md transition-all duration-300 group-hover:border-velora-goldLight/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
+        {badgeLabel && (
+          <div className="pointer-events-none absolute left-2.5 top-2.5 z-10 flex items-center rounded-full border border-velora-red/30 bg-black/60 px-2.5 py-1 shadow-lg backdrop-blur-md">
+            <span className="mr-1.5 h-2 w-2 animate-pulse rounded-full bg-velora-red shadow-[0_0_12px_rgba(229,9,20,0.6)]" />
+            <span className="text-[10px] font-extrabold uppercase leading-none tracking-widest text-white">
+              {badgeLabel}
+            </span>
+          </div>
+        )}
+
         {image ? (
           <img
             src={image}

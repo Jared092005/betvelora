@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import GameCarousel from '../components/GameCarousel'
+import { homeGameSections } from '../data/homeGames'
 
 /**
  * Home — copiado desde Stitch (proyecto 10370446589462300119).
@@ -49,7 +51,7 @@ export default function Home() {
       <button aria-label="Close Menu" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg></button>
       </div>
       <nav className="flex flex-col py-6 space-y-2">
-      <Link to="/home" className="px-4 py-3 rounded-xl bg-velora-gold/15 text-velora-gold font-bold text-sm tracking-widest uppercase border border-velora-gold/30 transition-all">Home</Link>
+      <Link to="/" className="px-4 py-3 rounded-xl bg-velora-gold/15 text-velora-gold font-bold text-sm tracking-widest uppercase border border-velora-gold/30 transition-all">Home</Link>
       <Link to="/casino" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino</Link>
       <Link to="/casino-live" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino Live</Link>
       <Link to="/poker" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Poker</Link>
@@ -279,93 +281,7 @@ export default function Home() {
       <a className="px-3.5 py-1.5 rounded-full bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5" href="#"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[10px]"></i></a>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:grid-cols-4 xl:grid-cols-5 xl:gap-3">
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Aztec Empire" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/318b07beb799.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Aztec Empire</h3>
-      <p className="text-xs text-slate-400 truncate">ChimeraSpin</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Lucky Little Puppies" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/495df0ce5c13.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Lucky Little Puppies</h3>
-      <p className="text-xs text-slate-400 truncate">ChimeraSpin</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Halloween Ritual" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/cf1a67b4e005.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Halloween Ritual</h3>
-      <p className="text-xs text-slate-400 truncate">ChimeraSpin</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Coco Time" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/989ffe0d0b2c.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Coco Time</h3>
-      <p className="text-xs text-slate-400 truncate">ChimeraSpin</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper xl-only-card group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Book of Egypt" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/casino/c22f51178487.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Book of Egypt</h3>
-      <p className="text-xs text-slate-400 truncate">Platipus</p>
-      </div>
-      </div>
-      </div>
+      <GameCarousel games={homeGameSections.slots} label="juegos de slots" />
       </section>
 
       <section data-purpose="live-casino-section">
@@ -379,93 +295,7 @@ export default function Home() {
       </div>
       <Link to="/casino-live" className="px-3.5 py-1.5 rounded-full bg-velora-red/15 border border-velora-red/30 hover:bg-velora-red text-velora-red hover:text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[10px]"></i></Link></div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:grid-cols-4 xl:grid-cols-5 xl:gap-3">
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <div className="absolute top-2.5 left-2.5 z-10 bg-black/60 backdrop-blur-md border border-velora-red/30 px-2.5 py-1 rounded-full flex items-center shadow-lg pointer-events-none"><span className="w-2 h-2 rounded-full bg-velora-red animate-pulse mr-1.5 shadow-[0_0_12px_rgba(229,9,20,0.6)]"></span><span className="text-[10px] font-extrabold uppercase tracking-widest text-white leading-none">Live</span></div><img alt="Speed Roulette" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/29a678174e80.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Speed Roulette</h3>
-      <p className="text-xs text-slate-400 truncate">Evolution</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <div className="absolute top-2.5 left-2.5 z-10 bg-black/60 backdrop-blur-md border border-velora-red/30 px-2.5 py-1 rounded-full flex items-center shadow-lg pointer-events-none"><span className="w-2 h-2 rounded-full bg-velora-red animate-pulse mr-1.5 shadow-[0_0_12px_rgba(229,9,20,0.6)]"></span><span className="text-[10px] font-extrabold uppercase tracking-widest text-white leading-none">Live</span></div><img alt="Speed Baccarat L" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/c2cdf518ee68.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Speed Baccarat L</h3>
-      <p className="text-xs text-slate-400 truncate">Evolution</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <div className="absolute top-2.5 left-2.5 z-10 bg-black/60 backdrop-blur-md border border-velora-red/30 px-2.5 py-1 rounded-full flex items-center shadow-lg pointer-events-none"><span className="w-2 h-2 rounded-full bg-velora-red animate-pulse mr-1.5 shadow-[0_0_12px_rgba(229,9,20,0.6)]"></span><span className="text-[10px] font-extrabold uppercase tracking-widest text-white leading-none">Live</span></div><img alt="Baccarat Dance" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/345e95f7f9aa.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Baccarat Dance</h3>
-      <p className="text-xs text-slate-400 truncate">Vivo Gaming</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <div className="absolute top-2.5 left-2.5 z-10 bg-black/60 backdrop-blur-md border border-velora-red/30 px-2.5 py-1 rounded-full flex items-center shadow-lg pointer-events-none"><span className="w-2 h-2 rounded-full bg-velora-red animate-pulse mr-1.5 shadow-[0_0_12px_rgba(229,9,20,0.6)]"></span><span className="text-[10px] font-extrabold uppercase tracking-widest text-white leading-none">Live</span></div><img alt="VIP Baccarat 6" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/4e5a2fa755f4.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">VIP Baccarat 6</h3>
-      <p className="text-xs text-slate-400 truncate">Pragmatic Play Live</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper xl-only-card group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <div className="absolute top-2.5 left-2.5 z-10 bg-black/60 backdrop-blur-md border border-velora-red/30 px-2.5 py-1 rounded-full flex items-center shadow-lg pointer-events-none"><span className="w-2 h-2 rounded-full bg-velora-red animate-pulse mr-1.5 shadow-[0_0_12px_rgba(229,9,20,0.6)]"></span><span className="text-[10px] font-extrabold uppercase tracking-widest text-white leading-none">Live</span></div><img alt="Lightning Roulette" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/casino-live/b65eed1bd941.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Lightning Roulette</h3>
-      <p className="text-xs text-slate-400 truncate">Evolution</p>
-      </div>
-      </div>
-      </div>
+      <GameCarousel games={homeGameSections.casinoLive} label="mesas en vivo" />
       </section>
 
       <section data-purpose="new-games-section">
@@ -478,93 +308,7 @@ export default function Home() {
       <a className="px-3.5 py-1.5 rounded-full bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5" href="#"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[10px]"></i></a>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:grid-cols-4 xl:grid-cols-5 xl:gap-3">
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Gates of Olympus Super" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/4d6cccbf0b63.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Gates of Olympus Super</h3>
-      <p className="text-xs text-slate-400 truncate">Pragmatic Play</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Sweet Bonanza 1000" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/0148f82ac393.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Sweet Bonanza 1000</h3>
-      <p className="text-xs text-slate-400 truncate">Pragmatic Play</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Wolf Gold Megaways" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/ed2b6607cb29.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Wolf Gold Megaways</h3>
-      <p className="text-xs text-slate-400 truncate">Pragmatic Play</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Book of Dead Deluxe" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/home/b758420fc578.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Book of Dead Deluxe</h3>
-      <p className="text-xs text-slate-400 truncate">Play'n GO</p>
-      </div>
-      </div>
-        <div className="game-card-wrapper xl-only-card group flex flex-col">
-      <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#181a20] border border-white/[0.08] shadow-md group-hover:border-[#E6A15C]/40 group-hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)]">
-      <img alt="Crystal Sevens" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="/screens/casino/846383f6b97b.jpg" />
-      <button className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/80 hover:text-[#e60026] hover:scale-110 transition-all z-10" title="Add to favorites">
-      <i className="fa-regular fa-heart text-xs"></i>
-      </button>
-      <div className="game-overlay absolute inset-0 bg-black/60 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 flex flex-col items-center justify-center gap-2 p-3">
-      <button className="px-5 py-2 rounded-full bg-[#e60026] hover:bg-[#b8001f] text-white text-xs font-bold tracking-wider uppercase shadow-lg shadow-red-900/40 transform translate-y-2 group-hover:translate-y-0 transition-all cursor-pointer">
-        Play Now
-      </button>
-      </div>
-      </div>
-      <div className="pt-2 px-1">
-      <h3 className="font-bold text-white text-sm truncate group-hover:text-[#E6A15C] transition-colors">Crystal Sevens</h3>
-      <p className="text-xs text-slate-400 truncate">Platipus</p>
-      </div>
-      </div>
-      </div>
+      <GameCarousel games={homeGameSections.newGames} label="juegos nuevos" />
       </section>
 
       </div>

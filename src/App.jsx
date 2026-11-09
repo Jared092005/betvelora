@@ -18,10 +18,9 @@ function App() {
     <Routes>
       {/* Todas las rutas comparten Header + Footer + ScrollToTop */}
       <Route element={<Layout />}>
-        {/* "/" redirige a la URL canónica de la home */}
-        <Route path="/" element={<Navigate to="/home" replace />} />
-
-        <Route path="/home" element={<Home />} />
+        {/* La home vive en "/" y "/home" redirige a ella */}
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/casino" element={<Casino />} />
         <Route path="/casino-live" element={<CasinoLive />} />
         <Route path="/poker" element={<Poker />} />

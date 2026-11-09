@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import LanguageSwitcher from './LanguageSwitcher'
+import logo from '../assets/logoBetVelora.png'
 
 // Navegación principal. `end` evita que "Home" quede activo en todas las rutas.
 const navItems = [
-  { name: 'Home', to: '/home', icon: 'fa-house', end: true },
+  { name: 'Home', to: '/', icon: 'fa-house', end: true },
   { name: 'Casino', to: '/casino', icon: 'fa-dice' },
   { name: 'Casino Live', to: '/casino-live', icon: 'fa-video' },
   { name: 'Poker', to: '/poker', isSvg: true },
@@ -16,9 +17,6 @@ const navItems = [
 const activeClass = 'bg-velora-gold text-slate-900 shadow-glow-gold border-velora-gold/30'
 const idleClass =
   'text-slate-300 hover:text-white hover:bg-white/5 border-transparent'
-
-const LOGO_SRC =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCDrOrEvl-leVRUkFLC6Go1wpWgWI3OlJ1sC5VyoYD2k9bvujDzsoikVtNHOezuSdULu8mgG-_Ul-ej-8qUyPXgEebZAejgxxy-QaYVxfOn4nOQ3xXroZTPYTvUGFRTf7HbZzBkViSeYClmXk7vPPKTzcQSpfA49yZJ7jK8SHuUIqz_vy9HbT0QU5IbB6TaDNgSI6T3qRN5ER1HOs54rXKss0oelNS08Uzx5cQzeYu29y7pzOL5jAjF308BeKAsTw8mRJw'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -143,8 +141,8 @@ export default function Header() {
             </button>
 
             {/* Logo */}
-            <NavLink className="group hidden items-center gap-3 lg:inline-flex" to="/home">
-              <img alt="Velora Casino" className="h-8 w-auto" src={LOGO_SRC} />
+            <NavLink className="group hidden items-center gap-3 lg:inline-flex" to="/">
+              <img alt="Velora Casino" className="h-12 w-auto" src={logo} />
             </NavLink>
 
             {/* Navegación escritorio */}
@@ -234,7 +232,7 @@ export default function Header() {
       {isMenuOpen && (
         <div className="fixed inset-0 z-50 flex flex-col justify-start bg-black/80 p-6 backdrop-blur-md transition-all duration-300 lg:hidden">
           <div className="flex items-center justify-between border-b border-velora-borderSubtle pb-6">
-            <img alt="Velora Casino" className="h-7 w-auto" src={LOGO_SRC} />
+            <img alt="Velora Casino" className="h-10 w-auto" src={logo} />
             <button
               aria-label="Close Menu"
               className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-colors hover:text-white"
