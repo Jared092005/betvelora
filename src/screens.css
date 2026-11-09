@@ -1,0 +1,183 @@
+/* Estilos extraídos de las pantallas de Stitch */
+
+/* Subtle luxury card-suit watermark background */
+    .bg-casino-pattern {
+      background-color: #07080B;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(178, 13, 21, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.015' fill-rule='evenodd'%3E%3Cpath d='M40 24c2.5-4 7-6 10-3 3.5 3.5 2 9.5-3 13.5L40 40l-7-5.5C28 30.5 26.5 24.5 30 21c3-3 7.5-1 10 3zm0 16l5 6h-3v8h-4v-8h-3l5-6zm-20 4c2.2 0 4 1.8 4 4 0 3.5-4 8-4 8s-4-4.5-4-8c0-2.2 1.8-4 4-4zm40 0c2.2 0 4 1.8 4 4 0 3.5-4 8-4 8s-4-4.5-4-8c0-2.2 1.8-4 4-4z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Metallic Gold Shimmer */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF1B0 0%, #D4AF37 50%, #AA820A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Red Velvet CTA Gradient */
+    .ruby-gradient-btn {
+      background: linear-gradient(135deg, #FF1E27 0%, #B20D15 100%);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ruby-gradient-btn:hover {
+      background: linear-gradient(135deg, #FF333B 0%, #D4121B 100%);
+      box-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+      transform: translateY(-1px);
+    }
+
+    /* Fine Card Border Gradient */
+    .card-border-gradient {
+      border: 1px solid transparent;
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
+      background-image: linear-gradient(to right, #141722, #141722), linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(255, 255, 255, 0.04), rgba(229, 9, 20, 0.25));
+    }
+
+    /* Smooth Custom Scrollbar */
+
+/* Ensure overlay with Play Now is strictly hidden when not hovered */
+  .group:not(:hover) .group-hover\:opacity-100 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+.touch-pan-y { touch-action: pan-y; }
+
+/* Custom subtle dark scrollbar */
+
+/* Game card hover smooth transition */
+    .game-card-wrapper {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+    .game-card-wrapper:hover {
+      transform: translateY(-4px);
+    }
+
+    .font-serif {
+      font-family: 'Cinzel', serif;
+    }
+
+@keyframes live-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .live-dot {
+      animation: live-pulse 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+/* Custom subtle scrollbar */
+
+@keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: inline-flex;
+      animation: marquee 35s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+.play-overlay {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+  .group:hover .play-overlay, .game-card-wrapper:hover .play-overlay {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+/* Subtle custom scrollbar */
+
+    /* Glow effect for luxury icons */
+    .gift-glow {
+      filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.45));
+    }
+
+/* ============================================================
+   Chevrons de la lista "By Provider"
+   En mobile/tablet los proveedores son pills horizontales y la
+   flecha › sobra visualmente. En desktop (>=1024px) se mantiene.
+   ============================================================ */
+@media (max-width: 1023.98px) {
+  .provider-nav-item .chevron-icon,
+  .provider-nav-item > .fa-chevron-right {
+    display: none !important;
+  }
+}
+
+/* Subtle luxury radial backdrops */
+    .bg-casino-radial {
+      background: radial-gradient(circle at 50% 20%, rgba(230, 0, 38, 0.08) 0%, rgba(0, 0, 0, 0.95) 70%, #000000 100%);
+    }
+    
+    /* Subtle glow for the primary CTA */
+    .glow-crimson-btn {
+      box-shadow: 0 4px 25px -2px rgba(230, 0, 38, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    .glow-crimson-btn:hover {
+      box-shadow: 0 6px 30px 0 rgba(230, 0, 38, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    /* Ambient card border illumination */
+    .auth-card {
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+
+    /* Custom form input placeholder */
+
+/* Subtle radial gold & jungle atmosphere for the slot frame */
+    .slot-vignette {
+      background: radial-gradient(circle at center, rgba(16, 32, 22, 0.4) 0%, rgba(5, 10, 8, 0.95) 100%);
+    }
+    .gold-emboss {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 12px rgba(212, 175, 55, 0.45);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1f2433;
+      border-radius: 9999px;
+    }
+
+/* ============================================================
+   Cards de juego: en xl (>=1280px) se muestran 5 por fila
+   y con tipografía/controles más compactos.
+   ============================================================ */
+@media (min-width: 1280px) {
+  .game-card-wrapper h3 {
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1.25;
+  }
+
+  .game-card-wrapper p {
+    font-size: 0.6875rem; /* 11px */
+    line-height: 1.25;
+  }
+
+  .game-card-wrapper > div:first-child > button {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+/* El 5º juego de cada sección de /home solo aparece a partir de xl */
+@media (max-width: 1279.98px) {
+  .xl-only-card {
+    display: none !important;
+  }
+}

@@ -1,0 +1,109 @@
+{
+    "games":  [
+                  {
+                      "id":  "jolly-roger",
+                      "name":  "Jolly Roger",
+                      "provider":  "Octavian",
+                      "category":  "Slots",
+                      "image":  "/games/jolly-roger.jpg"
+                  },
+                  {
+                      "id":  "crystal-sevens",
+                      "name":  "Crystal Sevens",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/crystal-sevens.jpg"
+                  },
+                  {
+                      "id":  "crocoman",
+                      "name":  "Crocoman",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/crocoman.jpg"
+                  },
+                  {
+                      "id":  "crazy-jelly",
+                      "name":  "Crazy Jelly",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/crazy-jelly.jpg"
+                  },
+                  {
+                      "id":  "cleos-gold",
+                      "name":  "Cleo\u0027s Gold",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/cleos-gold.jpg"
+                  },
+                  {
+                      "id":  "cinderella",
+                      "name":  "Cinderella",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/cinderella.jpg"
+                  },
+                  {
+                      "id":  "chinese-tigers",
+                      "name":  "Chinese Tigers",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/chinese-tigers.jpg"
+                  },
+                  {
+                      "id":  "caishens-gifts",
+                      "name":  "Caishen\u0027s Gifts",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/caishens-gifts.jpg"
+                  },
+                  {
+                      "id":  "book-of-egypt",
+                      "name":  "Book of Egypt",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/book-of-egypt.jpg"
+                  },
+                  {
+                      "id":  "bison-trail",
+                      "name":  "Bison Trail",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/bison-trail.jpg"
+                  },
+                  {
+                      "id":  "arabian-tales",
+                      "name":  "Arabian Tales",
+                      "provider":  "Platipus",
+                      "category":  "Slots",
+                      "image":  "/games/arabian-tales.jpg"
+                  },
+                  {
+                      "id":  "zombie-lab",
+                      "name":  "Zombie Lab",
+                      "provider":  "Octavian",
+                      "category":  "Slots",
+                      "image":  "/games/zombie-lab.jpg"
+                  },
+                  {
+                      "id":  "wily-fox",
+                      "name":  "Wily Fox",
+                      "provider":  "Octavian",
+                      "category":  "Slots",
+                      "image":  "/games/wily-fox.jpg"
+                  },
+                  {
+                      "id":  "sultan",
+                      "name":  "Sultan",
+                      "provider":  "Octavian",
+                      "category":  "Slots",
+                      "image":  "/games/sultan.jpg"
+                  },
+                  {
+                      "id":  "songkran-holidays",
+                      "name":  "Songkran Holidays",
+                      "provider":  "Octavian",
+                      "category":  "Slots",
+                      "image":  "/games/songkran-holidays.jpg"
+                  }
+              ]
+}
