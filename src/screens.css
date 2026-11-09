@@ -120,7 +120,7 @@
 
 /* Subtle luxury radial backdrops */
     .bg-casino-radial {
-      background: radial-gradient(circle at 50% 20%, rgba(230, 0, 38, 0.08) 0%, rgba(0, 0, 0, 0.95) 70%, #000000 100%);
+      background: radial-gradient(circle at 50% 20%, rgb(230 0 38 / 0.12) 0%, rgb(0 0 0 / 0.5) 68%, rgb(0 0 0 / 0.7) 100%);
     }
     
     /* Subtle glow for the primary CTA */

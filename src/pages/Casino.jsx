@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 
 /**
  * Casino — copiado desde Stitch (proyecto 10370446589462300119).
@@ -49,17 +48,6 @@ export default function Casino() {
       <img alt="Velora Casino" className="h-7 w-auto" src="/screens/casino/bcee34ed446e.jpg" />
       <button aria-label="Close Menu" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg></button>
       </div>
-      <nav className="flex flex-col py-6 space-y-2 sticky top-0">
-      <Link to="/home" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Home</Link>
-      <Link to="/casino" className="px-4 py-3 rounded-xl bg-velora-gold/15 text-velora-gold font-bold text-sm tracking-widest uppercase border border-velora-gold/30 transition-all">Casino</Link>
-      <Link to="/casino-live" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino Live</Link>
-      <Link to="/poker" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Poker</Link>
-      <Link to="/virtual" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Virtual</Link>
-      <Link to="/promotions" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Promotions</Link>
-
-      <a className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all" href="#">Profile</a>
-      <a className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all" href="#">Messages</a>
-      </nav>
       </div>
       <section className="w-full max-w-[1920px] mx-auto px-4 lg:px-8 pt-6 pb-2" data-purpose="top-winners-section"><div className="bg-gradient-to-b from-[#121317] via-[#0d0e12] to-black rounded-2xl border border-[#d4af37]/30 p-5 lg:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.85)] relative overflow-hidden"><div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-white/[0.08] pb-5"><div className="flex items-center gap-3.5"><div><div className="flex items-center gap-2"><h2 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">TOP WINNERS OF THE MONTH</h2></div></div></div><div className="hidden lg:flex items-center gap-2 self-end md:self-auto"><div className="flex items-center gap-2"><button aria-label="Previous winners" onClick={() => stepWinners(-1)} className="w-9 h-9 rounded-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 flex items-center justify-center text-slate-300 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 cursor-pointer shadow-[0_0_12px_rgba(212,175,55,0.15)] group"><i className="fa-solid fa-chevron-left text-xs"></i></button><button aria-label="Next winners" onClick={() => stepWinners(1)} className="w-9 h-9 rounded-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 flex items-center justify-center text-slate-300 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 cursor-pointer shadow-[0_0_12px_rgba(212,175,55,0.15)] group"><i className="fa-solid fa-chevron-right text-xs"></i></button></div></div></div><div id="winners-carousel" ref={winnersRef} className="flex overflow-x-auto gap-4 scroll-smooth pb-1" style={{ scrollbarWidth: 'none' }}>
   
@@ -174,7 +162,7 @@ export default function Casino() {
         </div>
       </div></div></section><div className="flex-1 max-w-[1920px] w-full mx-auto flex border-t border-[#d4af37]/20 flex-col lg:flex-row">
 
-      <aside className="w-full lg:w-64 xl:w-72 shrink-0 bg-[#07080b] border-b lg:border-b-0 lg:border-r border-[#d4af37]/20 py-3 lg:py-6 px-4 flex flex-col gap-4 lg:gap-8 lg:overflow-y-auto lg:max-h-[calc(100vh-80px)] lg:sticky lg:top-20" data-purpose="casino-navigation-sidebar">
+      <aside className="w-full lg:w-64 xl:w-72 shrink-0 bg-[#07080b]/75 backdrop-blur-sm border-b lg:border-b-0 lg:border-r border-[#d4af37]/20 py-3 lg:py-6 px-4 flex flex-col gap-4 lg:gap-8 lg:overflow-y-auto lg:max-h-[calc(100vh-80px)] lg:sticky lg:top-20" data-purpose="casino-navigation-sidebar">
 
       <div><div className="flex items-center gap-2 mb-3 px-3"><h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase">Casino</h2></div><nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2.5 lg:gap-0 lg:space-y-1 pb-2 lg:pb-0 scroll-smooth" id="casino-nav-menu"><a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#d4af37]/15 border border-[#d4af37]/40 text-white font-medium text-sm shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
       <span className="flex items-center"><i className="fa-solid fa-house w-5 text-center mr-3 text-amber-400 text-sm drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"></i><span className="font-semibold text-white">Lobby</span></span>
@@ -281,7 +269,7 @@ export default function Casino() {
       </aside>
 
 
-      <div className="flex-1 min-w-0 bg-black p-4 sm:p-6 lg:p-8" data-purpose="casino-games-catalog">
+      <div className="flex-1 min-w-0 bg-black/40 p-4 sm:p-6 lg:p-8" data-purpose="casino-games-catalog">
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
 

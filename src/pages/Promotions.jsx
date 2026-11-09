@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 /**
  * Promotions — copiado desde Stitch (proyecto 10370446589462300119).
  * Generado automáticamente; el marcado es el original del diseño.
@@ -16,17 +14,9 @@ export default function Promotions() {
       <img alt="Velora Casino" className="h-7 w-auto" src="/screens/promotions/bcee34ed446e.jpg" />
       <button aria-label="Close Menu" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg></button>
       </div>
-      <nav className="flex flex-col py-6 space-y-2 sticky top-0"><Link to="/home" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Home</Link>
-      <Link to="/casino" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino</Link>
-      <Link to="/casino-live" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino Live</Link>
-      <Link to="/poker" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Poker</Link>
-      <Link to="/virtual" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Virtual</Link>
-      <Link to="/promotions" className="px-4 py-3 rounded-xl bg-velora-gold/15 text-velora-gold font-bold text-sm tracking-widest uppercase border border-velora-gold/30 transition-all">Promotions</Link>
-      <a className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all" href="#">Profile</a>
-      <a className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all" href="#">Messages</a></nav>
       </div>
 
-      <div className="flex-1 w-full bg-[#000000]" data-purpose="bonuses-main-content">
+      <div className="flex-1 w-full bg-black/40" data-purpose="bonuses-main-content">
       <div className="max-w-[1920px] mx-auto px-6 lg:px-12 py-10 lg:py-14">
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">

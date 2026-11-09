@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import ScrollToTop from './ScrollToTop'
+import AppBackground from './AppBackground'
 
 /**
  * Layout compartido de la aplicación.
@@ -10,7 +11,8 @@ import ScrollToTop from './ScrollToTop'
  */
 export default function Layout() {
   return (
-    <div className="flex min-h-screen flex-col bg-velora-black text-slate-200">
+    <div className="app-shell flex min-h-screen flex-col text-slate-200">
+      <AppBackground />
       <ScrollToTop />
       <Header />
 

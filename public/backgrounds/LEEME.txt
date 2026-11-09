@@ -1,0 +1,38 @@
+FONDO GLOBAL DE LA APLICACIÓN
+=============================
+
+La imagen que se usa ahora es:
+
+    src/assets/fondoBet-velora.webp
+
+Se importa desde `src/components/AppBackground.jsx`, así que Vite la
+procesa (hash + caché) y se muestra fija detrás de TODAS las rutas.
+
+Esta carpeta `public/backgrounds` ya no se usa para el fondo.
+Se deja vacía por si más adelante quieres servir imágenes estáticas
+sin que pasen por el bundler.
+
+
+CÓMO CAMBIAR EL FONDO
+---------------------
+
+Opción A (recomendada): reemplaza el archivo
+
+    src/assets/fondoBet-velora.webp
+
+manteniendo el nombre, o cambia la ruta en AppBackground.jsx:
+
+    import backgroundImage from '../assets/TU-IMAGEN.webp'
+
+Opción B: poner la imagen en esta carpeta y referenciarla como
+`/backgrounds/mi-fondo.jpg` en el estilo de AppBackground.
+
+
+AJUSTES ÚTILES
+--------------
+
+- Posición de la imagen: `.app-background` en src/index.css
+  (background-position: center bottom)
+
+- Oscurecido para legibilidad: `.app-background__overlay`
+  Sube o baja los valores `rgb(7 8 11 / X)` si el texto pierde contraste.
