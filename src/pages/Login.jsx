@@ -75,7 +75,7 @@ export default function Login() {
       </div>
 
       <div className="pt-2">
-      <button className="w-full py-4 px-6 rounded-full bg-[#d4af37] hover:bg-[#e5c158] text-black font-bold font-label-lg text-label-lg uppercase tracking-wider transition-all duration-300 shadow-[0_0_25px_rgba(212,175,55,0.4)] flex items-center justify-center gap-2 group cursor-pointer active:scale-[0.99]" type="submit">
+      <button className="btn-primary group w-full rounded-full px-6 py-4 font-label-lg text-label-lg uppercase tracking-wider" type="submit">
       <span className="">Enter the Lobby</span>
       <span className="material-symbols-outlined text-base font-bold transition-transform group-hover:translate-x-1">arrow_forward</span>
       </button>

@@ -13,6 +13,18 @@ import {
   Game,
   NotFound,
 } from './pages'
+import { AccountLayout } from './components'
+import {
+  Dashboard,
+  Deposit,
+  Withdrawal,
+  Transactions,
+  AccountPromotions,
+  VerifyAccount,
+  ResponsibleGambling,
+  Messages,
+  PersonalInformation,
+} from './pages/account'
 
 function App() {
   return (
@@ -31,7 +43,22 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/game/aztec-empire" element={<Game />} />
+        <Route path="/game" element={<Navigate to="/game/aztec-empire" replace />} />
+        <Route path="/game/:gameId" element={<Game />} />
+
+        {/* Área de cuenta */}
+        <Route path="/account" element={<AccountLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="deposit" element={<Deposit />} />
+          <Route path="withdrawal" element={<Withdrawal />} />
+          <Route path="transactions" element={<Transactions />} />
+          <Route path="promotions" element={<AccountPromotions />} />
+          <Route path="verify-account" element={<VerifyAccount />} />
+          <Route path="responsible-gambling" element={<ResponsibleGambling />} />
+          <Route path="messages" element={<Navigate to="/account/message" replace />} />
+          <Route path="message" element={<Messages />} />
+          <Route path="personal-information" element={<PersonalInformation />} />
+        </Route>
 
         <Route path="*" element={<NotFound />} />
       </Route>

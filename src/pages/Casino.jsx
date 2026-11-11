@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 /**
  * Casino — copiado desde Stitch (proyecto 10370446589462300119).
@@ -164,42 +165,42 @@ export default function Casino() {
 
       <aside className="w-full lg:w-64 xl:w-72 shrink-0 bg-[#07080b]/75 backdrop-blur-sm border-b lg:border-b-0 lg:border-r border-[#d4af37]/20 py-3 lg:py-6 px-4 flex flex-col gap-4 lg:gap-8 lg:overflow-y-auto lg:max-h-[calc(100vh-80px)] lg:sticky lg:top-20" data-purpose="casino-navigation-sidebar">
 
-      <div><div className="flex items-center gap-2 mb-3 px-3"><h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase">Casino</h2></div><nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2.5 lg:gap-0 lg:space-y-1 pb-2 lg:pb-0 scroll-smooth" id="casino-nav-menu"><a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#d4af37]/15 border border-[#d4af37]/40 text-white font-medium text-sm shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      <div><div className="flex items-center gap-2 mb-3 px-3"><h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase">Casino</h2></div><nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2.5 lg:gap-0 lg:space-y-1 pb-2 lg:pb-0 scroll-smooth" id="casino-nav-menu"><Link to="/casino" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#d4af37]/15 border border-[#d4af37]/40 text-white font-medium text-sm shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-house w-5 text-center mr-3 text-amber-400 text-sm drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"></i><span className="font-semibold text-white">Lobby</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/casino" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-fire w-5 text-center mr-3 text-[#ff5722] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(255,87,34,0.4)]"></i><span className="">Popular Games</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/casino" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-star w-5 text-center mr-3 text-[#38bdf8] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]"></i><span className="">New Games</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/casino" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-gem w-5 text-center mr-3 text-[#eab308] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(234,179,8,0.4)]"></i><span className="">Slots</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/crash-games" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-rocket w-5 text-center mr-3 text-[#06b6d4] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]"></i><span className="">Crash Games</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/casino" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-ticket w-5 text-center mr-3 text-[#c084fc] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(192,132,252,0.4)]"></i><span className="">Scratch</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/casino" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-dice w-5 text-center mr-3 text-[#10b981] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]"></i><span className="">Table Games</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/virtual" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-gamepad w-5 text-center mr-3 text-[#818cf8] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(129,140,248,0.4)]"></i><span className="">My Games</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a>
-      <a className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
+      </Link>
+      <Link to="/account" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
       <span className="flex items-center"><i className="fa-solid fa-heart w-5 text-center mr-3 text-[#f43f5e] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]"></i><span className="">My Favorites</span></span>
       <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </a></nav></div>
+      </Link></nav></div>
 
       <div className="pt-2">
         <div className="flex items-center gap-2 mb-3 px-3">

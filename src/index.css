@@ -23,20 +23,36 @@
   --color-velora-ruby: #b20d15;
 
   /* ---------- Secundario: dorado ---------- */
-  --color-velora-gold: #d4af37;
+  /* El dorado base sigue al color primario: cambiar --color-primary
+     (arriba, en los alias semánticos) repinta toda la app. */
+  --color-velora-gold: var(--color-primary);
   --color-velora-goldLight: #e6c35c;
   --color-velora-goldDark: #997e25;
 
+  /* ---------- Tokens del dashboard de cuenta ---------- */
+  --color-velora-cardBg: #0e1017;
+  --color-velora-deepDark: #070709;
+  --color-velora-goldHover: #e5be43;
+  --color-velora-goldMuted: #967926;
+  --color-velora-borderGold: rgb(212 175 55 / 0.25);
+  --color-velora-accentRed: #dc2626;
+  --color-velora-accentRedGlow: #ef4444;
+
   /* ---------- Alias semánticos ---------- */
-  --color-primary: #e60026;
-  --color-primary-hover: #f40612;
-  --color-secondary: #d4af37;
-  --color-secondary-light: #e6c35c;
-  --color-secondary-dark: #997e25;
+  /* Primario = dorado de acción (mismo tono del botón "Upload document") */
+  --color-primary: #d4af37;
+  --color-primary-hover: #c59f2e;
+  --color-primary-dark: #997e25;
+
+  /* Secundario = rojo de acento */
+  --color-secondary: #e60026;
+  --color-secondary-light: #f40612;
+  --color-secondary-dark: #9b0017;
 
   /* ---------- Tipografía: familias ---------- */
   --font-cinzel: 'Cinzel', serif;
   --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Cinzel', serif;
 
   /* ---------- Tipografía: escala ---------- */
   --text-display-xl: 56px;
@@ -100,8 +116,11 @@
 
   /* ---------- Sombras ---------- */
   --shadow-glow-red: 0 0 25px -4px rgb(229 9 20 / 0.45);
-  --shadow-glow-gold: 0 0 30px -4px rgb(212 175 55 / 0.35);
+  --shadow-glow-gold: 0 0 30px -4px color-mix(in srgb, var(--color-primary) 35%, transparent);
   --shadow-inner-glow: inset 0 1px 1px 0 rgb(255 255 255 / 0.1);
+  --shadow-card-soft: 0 8px 30px rgb(0 0 0 / 0.7);
+  --shadow-gold-button: 0 4px 18px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  --shadow-gold-glow: 0 0 25px color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
 /* ============================================================
@@ -131,6 +150,45 @@
    Decoraciones del design system
    ============================================================ */
 @layer components {
+  /* ============================================================
+     Botón primario: única clase para todos los CTA dorados.
+     Cambiar --color-primary cambia todos los botones de la app.
+     ============================================================ */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.75rem;
+    background-color: var(--color-primary);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 0.875rem 1.5rem;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+    box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--color-primary) 22%, transparent);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.99);
+  }
+
+  .btn-primary:disabled,
+  .btn-primary[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
   /* Fondo con marca de agua de palos de carta */
   .bg-casino-pattern {
     background-color: #07080b;

@@ -111,7 +111,7 @@ export default function Register() {
       </div>
 
       <div className="pt-2">
-      <button className="w-full py-4 px-6 rounded-2xl bg-[#d4af37] hover:bg-[#e6c35c] text-black font-extrabold uppercase tracking-wider text-sm transition-all duration-300 transform active:scale-[0.99] flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.35)]" type="submit"><span className="">Create Account</span><i className="fa-solid fa-arrow-right text-xs opacity-90"></i></button>
+      <button className="btn-primary w-full rounded-2xl px-6 py-4 text-sm font-extrabold uppercase tracking-wider" type="submit"><span className="">Create Account</span><i className="fa-solid fa-arrow-right text-xs opacity-90"></i></button>
       </div>
       </form>
 

@@ -114,13 +114,15 @@
     }
 
 /* ============================================================
-   Chevrons de la lista "By Provider"
-   En mobile/tablet los proveedores son pills horizontales y la
+   Flechas de los filtros laterales
+   En mobile/tablet los filtros son pills horizontales y la
    flecha › sobra visualmente. En desktop (>=1024px) se mantiene.
    ============================================================ */
 @media (max-width: 1023.98px) {
   .provider-nav-item .chevron-icon,
-  .provider-nav-item > .fa-chevron-right {
+  .provider-nav-item > .fa-chevron-right,
+  .casino-nav-item .chevron-icon,
+  .casino-nav-item > .fa-chevron-right {
     display: none !important;
   }
 }
@@ -180,6 +182,86 @@
     width: 1.75rem;
     height: 1.75rem;
   }
+}
+
+/* ============================================================
+   Pantalla Personal Information (/account/personal-information)
+   ============================================================ */
+/* Nota: los botones y enlaces dorados usan .btn-primary (index.css),
+   así que ya no hacen falta gradientes propios en esta pantalla. */
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.8) sepia(1) saturate(5) hue-rotate(5deg);
+  cursor: pointer;
+}
+
+/* ============================================================
+   Pantalla Messages (/account/message)
+   ============================================================ */
+.font-brand {
+  font-family: 'Cinzel', serif;
+}
+
+/* ============================================================
+   Pantalla Verify account (KYC)
+   ============================================================ */
+.red-glow {
+  box-shadow: 0 4px 20px -2px rgb(225 29 72 / 0.35);
+}
+
+/* ============================================================
+   Pantalla Withdrawal (/account/withdrawal)
+   ============================================================ */
+.gold-glow {
+  box-shadow: 0 0 25px -5px rgb(212 175 55 / 0.18);
+}
+
+.gold-glow-hover:hover {
+  box-shadow: 0 0 20px -2px rgb(212 175 55 / 0.3);
+}
+
+select option {
+  background-color: #111319;
+  color: #ffffff;
+}
+
+/* Barra lateral de cuenta: carrusel horizontal en móvil y tablet */
+.account-nav-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.account-nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Oculta las flechas del input numérico (Amount) */
+.no-spinner {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ============================================================
+   Pantalla Deposit (/account/deposit)
+   Los CTA dorados usan .btn-primary (index.css).
+   ============================================================ */
+
+.luxury-glow {
+  box-shadow: 0 0 25px rgb(212 175 55 / 0.08);
+}
+
+/* ============================================================
+   Pantalla Game (/game/:gameId)
+   ============================================================ */
+/* Transición suave del diseño original de Stitch */
+.transition-luxury {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* El carrusel de juegos de /home oculta su barra de scroll */

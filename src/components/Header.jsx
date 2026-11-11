@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import LanguageSwitcher from './LanguageSwitcher'
 import logo from '../assets/logoBetVelora.png'
 
@@ -176,12 +176,16 @@ export default function Header() {
           </div>
 
           {/* Área de usuario */}
-          <div className="flex shrink-0 items-center gap-3 lg:gap-5">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-5">
             {/* Notificaciones */}
-            <button className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-velora-borderSubtle bg-velora-surface text-slate-300 transition-all hover:border-velora-gold/40 hover:text-white lg:flex">
+            <Link
+              to="/account/message"
+              title="Messages"
+              className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-velora-borderSubtle bg-velora-surface text-slate-300 transition-all hover:border-velora-gold/40 hover:text-white lg:flex"
+            >
               <i className="fa-regular fa-envelope text-sm" />
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-velora-red ring-2 ring-[#0A0C13]" />
-            </button>
+            </Link>
 
             {/* Idioma */}
             <LanguageSwitcher />
@@ -193,19 +197,26 @@ export default function Header() {
                   €24,850.00
                 </span>
               </div>
-              <button className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-velora-gold px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-slate-900 shadow-glow-gold transition-all hover:bg-velora-goldLight">
+              <button className="btn-primary rounded-lg px-3 py-2 text-xs font-extrabold uppercase tracking-wider sm:px-4">
                 <i className="fa-solid fa-plus text-[11px]" />
-                <span>Add</span>
+                <span className="hidden sm:inline">Add</span>
               </button>
             </div>
 
             {/* Perfil */}
-            <button
-              className="group hidden h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-colors hover:border-velora-gold/40 hover:bg-white/10 hover:text-white lg:flex"
+            <NavLink
+              to="/account"
               title="User Profile"
+              className={({ isActive }) =>
+                `group hidden h-10 w-10 items-center justify-center rounded-full border transition-colors lg:flex ${
+                  isActive
+                    ? 'border-velora-gold/60 bg-velora-gold/15 text-velora-gold'
+                    : 'border-white/10 bg-white/5 text-slate-300 hover:border-velora-gold/40 hover:bg-white/10 hover:text-white'
+                }`
+              }
             >
               <svg
-                className="h-5 w-5 text-slate-300 group-hover:text-white"
+                className="h-5 w-5"
                 fill="none"
                 stroke="currentColor"
                 strokeLinecap="round"
@@ -216,11 +227,11 @@ export default function Header() {
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-            </button>
+            </NavLink>
 
             {/* Salir */}
             <button
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-velora-borderSubtle bg-velora-surface text-slate-400 transition-colors hover:border-velora-red/40 hover:text-velora-red"
+              className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-velora-borderSubtle bg-velora-surface text-slate-400 transition-colors hover:border-velora-red/40 hover:text-velora-red sm:flex"
               title="Log Out"
             >
               <i className="fa-solid fa-arrow-right-from-bracket text-sm" />
@@ -265,6 +276,20 @@ export default function Header() {
                 {item.name}
               </NavLink>
             ))}
+
+            <NavLink
+              to="/account"
+              onClick={() => setIsMenuOpen(false)}
+              className={({ isActive }) =>
+                `rounded-xl px-4 py-3 text-sm font-semibold uppercase tracking-widest transition-all ${
+                  isActive
+                    ? 'border border-velora-gold/30 bg-velora-gold/15 text-velora-gold'
+                    : 'border border-transparent text-slate-300 hover:bg-white/5 hover:text-white'
+                }`
+              }
+            >
+              Profile
+            </NavLink>
           </nav>
         </div>
       )}
