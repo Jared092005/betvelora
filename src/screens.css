@@ -257,7 +257,7 @@ select option {
 }
 
 /* ============================================================
-   Pantalla Game (/game/:gameId)
+   Pantalla Game (/games/:gameId)
    ============================================================ */
 /* Transición suave del diseño original de Stitch */
 .transition-luxury {

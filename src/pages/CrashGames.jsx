@@ -272,7 +272,7 @@ export default function CrashGames() {
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 xl:gap-3" data-purpose="games-grid">
         {crashGameList.map((game) => (
-          <GameCard key={game.id} game={game} to={`/game/${game.id}`} />
+          <GameCard key={game.id} game={game} to={`/games/${game.id}`} />
         ))}
       </div>
 

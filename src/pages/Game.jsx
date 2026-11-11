@@ -125,7 +125,7 @@ function GameScreen({ gameId }) {
                 />
               </svg>
             </button>
-            <div>
+            <div className="hidden lg:block">
               <h1 className="flex items-center gap-2 text-base font-bold leading-tight tracking-wide text-white sm:text-lg">
                 {game.name}
               </h1>
@@ -165,7 +165,7 @@ function GameScreen({ gameId }) {
             <button
               type="button"
               aria-label={tr('Información y reglas', 'Information and rules')}
-              className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold sm:flex"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -182,7 +182,7 @@ function GameScreen({ gameId }) {
               onClick={() => setLanguage(isEs ? 'en' : 'es')}
               aria-label={tr('Cambiar idioma', 'Change language')}
               title={isEs ? 'English' : 'Español'}
-              className="flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] px-2 text-[11px] font-bold uppercase tracking-wider text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
+              className="hidden h-10 min-w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] px-2 text-[11px] font-bold uppercase tracking-wider text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold xl:flex"
             >
               {isEs ? 'ES' : 'EN'}
             </button>
@@ -195,7 +195,7 @@ function GameScreen({ gameId }) {
                   ? tr('Salir de pantalla completa', 'Exit fullscreen')
                   : tr('Pantalla completa', 'Fullscreen')
               }
-              className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold sm:flex"
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
             >
               {expanded ? (
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,7 +220,7 @@ function GameScreen({ gameId }) {
 
             <Link
               to="/account/deposit"
-              className="btn-primary gap-1.5 rounded-full px-4 py-2.5 text-xs font-bold shadow-md sm:px-6 sm:text-sm"
+              className="btn-primary hidden gap-1.5 rounded-full px-4 py-2.5 text-xs font-bold shadow-md sm:px-6 sm:text-sm xl:inline-flex"
             >
               <span className="text-base font-extrabold leading-none">+</span>
               <span className="tracking-wide">{tr('Depositar', 'Deposit')}</span>
@@ -267,6 +267,12 @@ function GameScreen({ gameId }) {
                 </button>
               )}
             </div>
+
+            {/* En mobile/tablet el nombre va debajo del visor (en desktop está en la barra) */}
+            <div className="mt-4 lg:hidden">
+              <h2 className="text-base font-bold tracking-wide text-white sm:text-lg">{game.name}</h2>
+              <p className="text-xs font-medium text-slate-400 sm:text-sm">{game.provider}</p>
+            </div>
           </section>
 
           <aside aria-label={tr('Panel de usuario', 'User panel')} className="lg:col-span-3 xl:col-span-3">
@@ -290,7 +296,7 @@ function GameScreen({ gameId }) {
                   {tr('Depositar', 'Deposit')}
                 </Link>
               </div>
-              <div className="mt-6 border-t border-white/[0.08] pt-6">
+              <div className="mt-6 hidden border-t border-white/[0.08] pt-6 xl:block">
                 <h3 className="text-sm font-semibold tracking-wide text-white">{game.name}</h3>
                 <p className="mt-0.5 text-xs text-slate-400">{game.provider}</p>
               </div>
@@ -314,7 +320,7 @@ function GameScreen({ gameId }) {
           </div>
           <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">
             {relatedGames.map((related) => (
-              <GameCard key={related.id} game={related} to={`/game/${related.id}`} />
+              <GameCard key={related.id} game={related} to={`/games/${related.id}`} />
             ))}
           </div>
         </section>

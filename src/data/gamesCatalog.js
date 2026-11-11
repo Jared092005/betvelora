@@ -1,6 +1,6 @@
 // Catálogo de juegos del sitio.
 // Generado a partir de las cards reales de las pantallas de Stitch.
-// Cada página usa su lista; GAME_CATALOG resuelve cualquier /game/:gameId.
+// Cada página usa su lista; GAME_CATALOG resuelve cualquier /games/:gameId.
 import { homeGameSections } from './homeGames'
 
 // Casino

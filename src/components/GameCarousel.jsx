@@ -53,7 +53,7 @@ export default function GameCarousel({ games, label = 'juegos', onPlay }) {
             key={game.id ?? game.name}
             className="shrink-0 basis-[calc(50%-0.5rem)] sm:basis-[calc(33.333%-0.667rem)] lg:basis-[calc(25%-0.75rem)] xl:basis-[calc(20%-0.8rem)]"
           >
-            <GameCard game={game} onPlay={onPlay} />
+            <GameCard game={game} onPlay={onPlay} to={`/games/${game.id}`} />
           </div>
         ))}
       </div>

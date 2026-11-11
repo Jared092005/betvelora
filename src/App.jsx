@@ -43,8 +43,8 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/game" element={<Navigate to="/game/aztec-empire" replace />} />
-        <Route path="/game/:gameId" element={<Game />} />
+        <Route path="/games" element={<Navigate to="/games/aztec-empire" replace />} />
+        <Route path="/games/:gameId" element={<Game />} />
 
         {/* Área de cuenta */}
         <Route path="/account" element={<AccountLayout />}>

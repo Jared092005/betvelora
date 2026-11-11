@@ -28,7 +28,7 @@ export default function Home() {
   const [activePromo, setActivePromo] = useState(0)
   const [promoTick, setPromoTick] = useState(0)
 
-  const openGame = (game) => navigate(`/game/${game.id}`)
+  const openGame = (game) => navigate(`/games/${game.id}`)
 
   const goToPromo = (index) => {
     setActivePromo(((index % PROMO_SLIDES) + PROMO_SLIDES) % PROMO_SLIDES)
