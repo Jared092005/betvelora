@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../i18n'
 
 /**
  * Card de juego — replica la estructura de la pantalla Casino de Stitch:
@@ -8,9 +9,18 @@ import { Link } from 'react-router-dom'
  */
 export default function GameCard({ game, badge, onPlay, to }) {
   const { name, image, provider } = game
+  const { language } = useLanguage()
   const [isFavorite, setIsFavorite] = useState(false)
+  const isEs = language === 'es'
   const initial = (name || '?').trim().charAt(0).toUpperCase()
   const badgeLabel = badge ?? game.badge
+  const favoriteLabel = isFavorite
+    ? isEs
+      ? `Quitar ${name} de favoritos`
+      : `Remove ${name} from favorites`
+    : isEs
+      ? `Añadir ${name} a favoritos`
+      : `Add ${name} to favorites`
   const Wrapper = to ? Link : 'article'
 
   return (
@@ -54,12 +64,8 @@ export default function GameCard({ game, badge, onPlay, to }) {
             setIsFavorite((value) => !value)
           }}
           aria-pressed={isFavorite}
-          aria-label={
-            isFavorite
-              ? `Quitar ${name} de favoritos`
-              : `Añadir ${name} a favoritos`
-          }
-          title="Add to favorites"
+          aria-label={favoriteLabel}
+          title={isEs ? 'Añadir a favoritos' : 'Add to favorites'}
           className="absolute right-2.5 top-2.5 cursor-pointer z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white/80 backdrop-blur-sm transition-all hover:scale-110 hover:text-velora-red"
         >
           <i
@@ -81,7 +87,7 @@ export default function GameCard({ game, badge, onPlay, to }) {
             }}
             className="translate-y-2 cursor-pointer rounded-full bg-velora-red px-5 py-2 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-red-900/40 transition-all hover:bg-velora-ruby group-hover:translate-y-0"
           >
-            Play Now
+            {isEs ? 'Jugar ahora' : 'Play Now'}
           </button>
         </div>
       </div>

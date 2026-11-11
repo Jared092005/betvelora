@@ -1,25 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import GameCard from '../components/GameCard'
-import { homeGameSections } from '../data/homeGames'
+import { findGame, GAME_CATALOG } from '../data/gamesCatalog'
+import { useLanguage } from '../i18n'
 
 /**
  * Game — copiado de la pantalla "Game - Aztec Empire" de Stitch
  * (proyecto 10370446589462300119), con el header y el footer de la app.
  * "More from <proveedor>" usa el mismo GameCard que el resto del sitio.
  */
-const ALL_GAMES = [...homeGameSections.slots, ...homeGameSections.newGames]
-// Juegos que solo aparecen en la estantería del proveedor (no en /home),
-// tal y como los muestra la pantalla original de Stitch.
-const EXTRA_GAMES = [
-  {
-    id: 'the-last-queen-of-nile',
-    name: 'The Last Queen of Nile',
-    provider: 'ChimeraSpin',
-    image: '/screens/game/7c731a91f5c2.jpg',
-  },
-]
-const GAME_CATALOG = [...ALL_GAMES, ...EXTRA_GAMES]
 const HERO_IMAGES = { 'aztec-empire': '/screens/game/8f43979c416c.jpg' }
 const DEFAULT_GAME_ID = 'aztec-empire'
 
@@ -33,23 +22,76 @@ export default function Game() {
 
 function GameScreen({ gameId }) {
   const navigate = useNavigate()
+  const { language, setLanguage } = useLanguage()
   const [isFavorite, setIsFavorite] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const viewportRef = useRef(null)
 
-  const game =
-    GAME_CATALOG.find((item) => item.id === gameId) ??
-    GAME_CATALOG.find((item) => item.id === DEFAULT_GAME_ID)
+  const isEs = language === 'es'
+  const tr = (es, en) => (isEs ? es : en)
+
+  const game = findGame(gameId) ?? findGame(DEFAULT_GAME_ID) ?? GAME_CATALOG[0]
 
   const providerGames = GAME_CATALOG.filter((item) => item.provider === game.provider)
   const otherGames = providerGames.filter((item) => item.id !== game.id)
   const relatedGames = (otherGames.length >= 4 ? otherGames : providerGames).slice(0, 4)
   const heroImage = HERO_IMAGES[game.id] ?? game.image
 
-  // Vuelve a la pantalla anterior: home, casino-live u otro juego.
+  // Vuelve a la pantalla anterior: home, casino, casino-live u otro juego.
   // Si se entró directo por URL no hay historial y se cae en la home.
   const goBack = () => {
     if (window.history.state?.idx > 0) navigate(-1)
     else navigate('/')
   }
+
+  // ── Pantalla completa ──────────────────────────────────────
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(document.fullscreenElement === viewportRef.current)
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
+  // Fallback (navegadores sin Fullscreen API): modo expandido con Escape.
+  useEffect(() => {
+    if (!isExpanded) return undefined
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setIsExpanded(false)
+    }
+    document.addEventListener('keydown', onKeyDown)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [isExpanded])
+
+  const toggleFullscreen = async () => {
+    const element = viewportRef.current
+    if (!element) return
+
+    if (isExpanded) {
+      setIsExpanded(false)
+      return
+    }
+
+    if (document.fullscreenElement) {
+      await document.exitFullscreen?.()
+      return
+    }
+
+    try {
+      if (element.requestFullscreen) {
+        await element.requestFullscreen()
+        return
+      }
+    } catch {
+      /* el navegador lo rechaza: usamos el modo expandido */
+    }
+    setIsExpanded(true)
+  }
+
+  const expanded = isFullscreen || isExpanded
 
   return (
     <div className="flex min-h-screen flex-col bg-[#050608] text-slate-200 selection:bg-velora-gold selection:text-black">
@@ -66,7 +108,7 @@ function GameScreen({ gameId }) {
             <button
               type="button"
               onClick={goBack}
-              aria-label="Volver a la pantalla anterior"
+              aria-label={tr('Volver a la pantalla anterior', 'Back to the previous screen')}
               className="group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold sm:h-11 sm:w-11"
             >
               <svg
@@ -96,7 +138,11 @@ function GameScreen({ gameId }) {
               type="button"
               onClick={() => setIsFavorite((value) => !value)}
               aria-pressed={isFavorite}
-              aria-label="Añadir a favoritos"
+              aria-label={
+                isFavorite
+                  ? tr('Quitar de favoritos', 'Remove from favorites')
+                  : tr('Añadir a favoritos', 'Add to favorites')
+              }
               className={`group flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] transition-luxury hover:border-velora-gold/60 hover:text-velora-gold ${
                 isFavorite ? 'text-velora-gold' : 'text-slate-300'
               }`}
@@ -118,8 +164,8 @@ function GameScreen({ gameId }) {
 
             <button
               type="button"
-              aria-label="Información y reglas"
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
+              aria-label={tr('Información y reglas', 'Information and rules')}
+              className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold sm:flex"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -133,17 +179,43 @@ function GameScreen({ gameId }) {
 
             <button
               type="button"
-              aria-label="Modo Pantalla Completa"
-              className="hidden cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold sm:flex sm:h-10 sm:w-10"
+              onClick={() => setLanguage(isEs ? 'en' : 'es')}
+              aria-label={tr('Cambiar idioma', 'Change language')}
+              title={isEs ? 'English' : 'Español'}
+              className="flex h-10 min-w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] px-2 text-[11px] font-bold uppercase tracking-wider text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                />
-              </svg>
+              {isEs ? 'ES' : 'EN'}
+            </button>
+
+            <button
+              type="button"
+              onClick={toggleFullscreen}
+              aria-label={
+                expanded
+                  ? tr('Salir de pantalla completa', 'Exit fullscreen')
+                  : tr('Pantalla completa', 'Fullscreen')
+              }
+              className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-[#12141C] text-slate-300 transition-luxury hover:border-velora-gold/60 hover:text-velora-gold sm:flex"
+            >
+              {expanded ? (
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M9 9V4m0 5H4m11 0h5m-5 0V4M9 15H4m5 0v5m6-5h5m-5 0v5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  />
+                </svg>
+              ) : (
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  />
+                </svg>
+              )}
             </button>
 
             <Link
@@ -151,7 +223,7 @@ function GameScreen({ gameId }) {
               className="btn-primary gap-1.5 rounded-full px-4 py-2.5 text-xs font-bold shadow-md sm:px-6 sm:text-sm"
             >
               <span className="text-base font-extrabold leading-none">+</span>
-              <span className="tracking-wide">Deposit</span>
+              <span className="tracking-wide">{tr('Depositar', 'Deposit')}</span>
             </Link>
           </div>
         </header>
@@ -161,23 +233,48 @@ function GameScreen({ gameId }) {
           className="mb-8 grid grid-cols-1 gap-5 lg:grid-cols-12"
           data-purpose="game-interactive-viewport"
         >
-          <section aria-label="Consola del Juego" className="lg:col-span-9 xl:col-span-9">
-            <div className="relative aspect-[16/9] min-h-[380px] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0A0C13] shadow-2xl sm:min-h-[460px] md:min-h-[520px]">
+          <section aria-label={tr('Consola del juego', 'Game console')} className="lg:col-span-9 xl:col-span-9">
+            <div
+              ref={viewportRef}
+              className={`game-viewport w-full overflow-hidden bg-[#0A0C13] shadow-2xl ${
+                isExpanded
+                  ? 'fixed inset-0 z-[100] rounded-none border-0'
+                  : 'relative aspect-[16/9] min-h-[380px] rounded-2xl border border-white/10 sm:min-h-[460px] md:min-h-[520px]'
+              }`}
+            >
               {/* De momento solo se muestra la portada del juego */}
               <img
                 src={heroImage}
                 alt={`${game.name} — ${game.provider}`}
-                className="h-full w-full object-cover"
+                className={`h-full w-full ${expanded ? 'object-contain' : 'object-cover'}`}
               />
+
+              {isExpanded && (
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded(false)}
+                  aria-label={tr('Salir de pantalla completa', 'Exit fullscreen')}
+                  className="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M6 18L18 6M6 6l12 12"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
           </section>
 
-          <aside aria-label="Panel de Usuario" className="lg:col-span-3 xl:col-span-3">
+          <aside aria-label={tr('Panel de usuario', 'User panel')} className="lg:col-span-3 xl:col-span-3">
             <div className="flex h-full flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0E1017] p-6 shadow-xl">
               <div>
                 <div className="mb-6">
                   <span className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-slate-400">
-                    Balance
+                    {tr('Saldo', 'Balance')}
                   </span>
                   <div className="flex items-baseline space-x-1">
                     <span className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
@@ -190,7 +287,7 @@ function GameScreen({ gameId }) {
                   to="/account/deposit"
                   className="btn-primary gold-glow-hover w-full px-6 py-3.5 text-sm font-extrabold tracking-wide sm:text-base"
                 >
-                  Deposit
+                  {tr('Depositar', 'Deposit')}
                 </Link>
               </div>
               <div className="mt-6 border-t border-white/[0.08] pt-6">
@@ -212,7 +309,7 @@ function GameScreen({ gameId }) {
               id="more-games-heading"
               className="text-lg font-bold tracking-wide text-white sm:text-xl"
             >
-              More from {game.provider}
+              {tr(`Más de ${game.provider}`, `More from ${game.provider}`)}
             </h2>
           </div>
           <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">

@@ -264,6 +264,20 @@ select option {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Visor del juego a pantalla completa (Fullscreen API) */
+.game-viewport:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+  background-color: #000;
+}
+
+.game-viewport:fullscreen img {
+  object-fit: contain;
+}
+
 /* El carrusel de juegos de /home oculta su barra de scroll */
 .game-carousel-track {
   scrollbar-width: none;
