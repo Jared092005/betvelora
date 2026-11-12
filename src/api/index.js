@@ -7,5 +7,7 @@ export {
   listByProvider,
   getGame,
   listBrands,
+  listCategoryBrands,
+  searchGames,
 } from './games'
 export { normalizeGame, normalizeGamePage } from './normalize'

@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { listBrands, listByCategory, listByType, listNew } from '../api/games'
+import { listBrands, listByCategory, listByType, listNew, searchGames } from '../api/games'
 import GamesCarousel from '../components/GamesCarousel'
+import GamesGrid from '../components/GamesGrid'
 import useGames from '../hooks/useGames'
 import useGameCounts from '../hooks/useGameCounts'
+import { useLanguage } from '../i18n'
 
 /**
  * Home — copiado desde Stitch (proyecto 10370446589462300119).
@@ -41,6 +43,24 @@ export default function Home() {
   const newSection = useGames('home:new', ({ signal }) =>
     listNew({ signal, perPage: 12 }),
   )
+
+  const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
+
+  const { language } = useLanguage()
+  const isEs = language === 'es'
+  const tr = (es, en) => (isEs ? es : en)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(searchQuery.trim()), 300)
+    return () => clearTimeout(timer)
+  }, [searchQuery])
+
+  const searchState = useGames(`search:${debouncedQuery}`, ({ signal }) =>
+    debouncedQuery ? searchGames(debouncedQuery, { signal, perPage: 24 }) : Promise.resolve({ games: [] }),
+  )
+
+  const isSearching = searchQuery.trim().length > 0
 
   const counts = useGameCounts()
   const [providers, setProviders] = useState([])
@@ -123,6 +143,7 @@ export default function Home() {
       </nav>
       </div>
 
+      {!isSearching && (
       <section className="relative overflow-hidden border-b border-velora-borderSubtle bg-gradient-to-r from-[#0C0E17] via-[#151221] to-[#0A0C13]" id="hero-promo-carousel">
       <div className="max-w-[1920px] mx-auto px-4 lg:px-8 py-6 relative group">
 
@@ -184,24 +205,21 @@ export default function Home() {
       </div>
       </div>
       <div aria-hidden="true" className="hidden" id="carousel-touch-listener"></div></section>
+      )}
 
 
       <div className="max-w-[1920px] mx-auto px-4 lg:px-8 py-8 flex-1 flex flex-col lg:flex-row gap-8 w-full">
 
+      {!isSearching && (
       <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0 flex flex-col gap-6" data-purpose="sidebar-navigation">
-
-      <div className="relative cursor-pointer">
-      <input className="w-full bg-velora-surface border border-velora-borderSubtle focus:border-velora-gold/50 rounded-xl py-3 pl-10 pr-4 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-velora-gold/50 transition-all cursor-pointer" placeholder="Search games, tables..." type="text" />
-      <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
-      </div>
 
       <div className="bg-velora-surface/70 border border-velora-borderSubtle rounded-2xl p-4 backdrop-blur-sm">
       <h3 className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-400 px-3 pb-3 border-b border-white/5">
                 Game Categories
               </h3>
-      <ul className="mt-3 space-y-1">
-      <li className="">
-      <Link to="/casino" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <ul className="mt-3 flex gap-2 overflow-x-auto pb-1 scroll-smooth lg:block lg:space-y-1 lg:overflow-visible lg:pb-0" style={{ scrollbarWidth: 'none' }}>
+      <li className="shrink-0">
+      <Link to="/casino" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-fire text-velora-red w-4 text-center"></i>
       <span className="">Popular Picks</span>
@@ -209,11 +227,11 @@ export default function Home() {
       <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.popular ?? '…'}</span>
       </Link>
       </li>
-      <li className="">
-      <Link to="/casino?type=slot" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group"><div className="flex items-center gap-3"><i className="fa-solid fa-dice-d6 text-velora-gold w-4 text-center"></i><span className="">Slots</span></div><span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.slots ?? '…'}</span></Link>
+      <li className="shrink-0">
+      <Link to="/casino?type=slot" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0"><div className="flex items-center gap-3"><i className="fa-solid fa-dice-d6 text-velora-gold w-4 text-center"></i><span className="">Slots</span></div><span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.slots ?? '…'}</span></Link>
       </li>
-      <li className="">
-      <Link to="/casino-live" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <li className="shrink-0">
+      <Link to="/casino-live" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-video text-emerald-400 w-4 text-center"></i>
       <span className="">Casino Live</span>
@@ -221,8 +239,8 @@ export default function Home() {
       <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.live ?? '…'}</span>
       </Link>
       </li>
-      <li className="">
-      <Link to="/crash-games" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <li className="shrink-0">
+      <Link to="/crash-games" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-chart-line text-blue-400 w-4 text-center"></i>
       <span className="">Crash Games</span>
@@ -230,8 +248,8 @@ export default function Home() {
       <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.crash ?? '…'}</span>
       </Link>
       </li>
-      <li className="">
-      <Link to="/poker" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <li className="shrink-0">
+      <Link to="/poker" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
       <div className="flex items-center gap-3">
       <svg className="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" stroke="none" viewBox="0 0 24 24"><path d="M12 2C9.5 5.5 6 8.5 6 12c0 2.8 2.2 4.5 4.5 4.5.8 0 1.5-.2 2-.6.1.5-.2 1.6-1.5 2.6H8v1.5h8V18.5h-3c-1.3-1-1.6-2.1-1.5-2.6.5.4 1.2.6 2 .6 2.3 0 4.5-1.7 4.5-4.5 0-3.5-3.5-6.5-6-10z"></path></svg>
       <span className="">Poker Rooms</span>
@@ -239,8 +257,8 @@ export default function Home() {
       <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.poker ?? '…'}</span>
       </Link>
       </li>
-      <li className="">
-      <Link to="/casino?type=scratch" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <li className="shrink-0">
+      <Link to="/casino?type=scratch" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-ticket text-amber-400 w-4 text-center"></i>
       <span className="">Scratch &amp; Lotteries</span>
@@ -248,8 +266,8 @@ export default function Home() {
       <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.scratch ?? '…'}</span>
       </Link>
       </li>
-      <li className="">
-      <Link to="/virtual" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <li className="shrink-0">
+      <Link to="/virtual" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-trophy text-slate-400 w-4 text-center"></i>
       <span className="">Virtual Sports</span>
@@ -273,12 +291,12 @@ export default function Home() {
       <i className="fa-solid fa-filter absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-600 text-[10px]"></i>
       </div>
 
-      <div className="mt-2 grid max-h-72 grid-cols-2 gap-2 overflow-y-auto pr-1 custom-scrollbar">
+      <div className="mt-2 flex gap-2 overflow-x-auto pb-1 scroll-smooth lg:grid lg:max-h-72 lg:grid-cols-2 lg:overflow-x-hidden lg:overflow-y-auto lg:pb-0 lg:pr-1 custom-scrollbar" style={{ scrollbarWidth: 'none' }}>
       {filteredProviders.map((provider) => (
         <Link
           key={provider.id}
           to={`/casino?brand=${provider.id}`}
-          className="group flex h-12 items-center justify-center rounded-xl border border-white/5 bg-[#0A0C13] p-2 transition-all hover:border-velora-gold/40 hover:bg-[#121622]"
+          className="group flex h-12 min-w-[150px] shrink-0 items-center justify-center rounded-xl border border-white/5 bg-[#0A0C13] p-2 transition-all hover:border-velora-gold/40 hover:bg-[#121622] lg:min-w-0"
         >
           <span className="flex max-w-full items-center gap-1.5 text-xs font-black uppercase tracking-wider text-slate-400 transition-colors group-hover:text-velora-gold">
             <span className="truncate">{provider.name}</span>
@@ -295,12 +313,16 @@ export default function Home() {
       </div>
 
       </aside>
+      )}
 
 
       <div className="flex-1 flex flex-col gap-10 min-w-0" data-purpose="games-catalog">
 
-      <div className="flex items-center justify-between border-b border-velora-borderSubtle pb-4 overflow-x-auto gap-3">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col justify-between gap-3 border-b border-velora-borderSubtle pb-4 md:flex-row md:items-center md:gap-4">
+      
+
+      {!isSearching && (
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
       <button className="btn-primary rounded-xl px-4 py-2 text-xs font-bold whitespace-nowrap">All Games</button>
       <button className="px-4 py-2 rounded-xl bg-velora-surface hover:bg-white/5 text-slate-400 hover:text-white border border-white/5 text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer">
                   Popular Slots
@@ -315,8 +337,56 @@ export default function Home() {
                   Roulette &amp; Baccarat
                 </button>
       </div>
+      )}
+      <div className="relative w-full shrink-0 md:w-64 mr-10">
+      <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+      <input
+        className="w-full rounded-xl border border-velora-borderSubtle bg-velora-surface py-3 pl-10 pr-9 text-xs text-white placeholder-slate-500 transition-all focus:border-velora-gold/50 focus:outline-none focus:ring-1 focus:ring-velora-gold/50"
+        placeholder="Search games, tables..."
+        type="search"
+        value={searchQuery}
+        onChange={(event) => setSearchQuery(event.target.value)}
+      />
+      {searchQuery && (
+        <button
+          type="button"
+          onClick={() => setSearchQuery('')}
+          aria-label={isEs ? 'Limpiar búsqueda' : 'Clear search'}
+          className="absolute right-2 top-1/2 flex h-6 w-6 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-slate-400 transition-colors hover:text-white"
+        >
+          <i className="fa-solid fa-xmark text-[11px]"></i>
+        </button>
+      )}
+      </div>
       </div>
 
+      {isSearching ? (
+      <section data-purpose="search-results">
+      <div className="flex items-center justify-between mb-5">
+      <h2 className="font-cinzel text-xl font-bold uppercase tracking-wider text-white">
+                  {tr('Resultados para', 'Results for')} “{searchQuery.trim()}”
+                </h2>
+      {searchState.status === 'ready' && (
+        <span className="text-xs text-slate-400 font-medium">
+          {searchState.games.length} {isEs ? (searchState.games.length === 1 ? 'juego' : 'juegos') : (searchState.games.length === 1 ? 'game' : 'games')}
+        </span>
+      )}
+      </div>
+      <GamesGrid
+        className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        games={searchState.games}
+        status={searchState.status}
+        error={searchState.error}
+        retry={searchState.retry}
+        skeletonCount={10}
+        emptyMessage={tr(
+          `No se encontraron juegos para “${searchQuery.trim()}”.`,
+          `No games found for “${searchQuery.trim()}”.`,
+        )}
+      />
+      </section>
+      ) : (
+      <>
       <section data-purpose="slots-section">
       <div className="flex items-center justify-between mb-5">
       <div className="flex items-center gap-3">
@@ -369,6 +439,8 @@ export default function Home() {
 
       <GamesCarousel {...newSection} label="juegos nuevos" />
       </section>
+      </>
+      )}
 
       </div>
 
