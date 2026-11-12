@@ -339,7 +339,7 @@ function GameScreen({ gameId }) {
 
             {/* En mobile/tablet el nombre va debajo del visor (en desktop está en la barra) */}
             {game && (
-              <div className="mt-4 xl:hidden">
+              <div className="mt-4 lg:hidden">
                 <h2 className="text-base font-bold tracking-wide text-white sm:text-lg">{game.name}</h2>
                 <p className="text-xs font-medium text-slate-400 sm:text-sm">{game.provider}</p>
               </div>
@@ -347,7 +347,7 @@ function GameScreen({ gameId }) {
           </section>
 
           <aside aria-label={tr('Panel de usuario', 'User panel')} className="lg:col-span-3 xl:col-span-3">
-            <div className="flex h-full flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0E1017] p-6 shadow-xl">
+            <div className="flex h-[40%] flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0E1017] p-6 shadow-xl">
               <div>
                 <div className="mb-6">
                   <span className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-slate-400">
@@ -367,7 +367,7 @@ function GameScreen({ gameId }) {
                   {tr('Depositar', 'Deposit')}
                 </Link>
               </div>
-              <div className="mt-6 hidden border-t border-white/[0.08] pt-6 xl:block">
+              <div className="mt-6 hidden border-t border-white/[0.08] pt-6 lg:block">
                 <h3 className="text-sm font-semibold tracking-wide text-white">{game?.name ?? ''}</h3>
                 <p className="mt-0.5 text-xs text-slate-400">{game?.provider ?? ''}</p>
               </div>
