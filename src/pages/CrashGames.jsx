@@ -1,7 +1,8 @@
-import GameCard from '../components/GameCard'
-import { crashGameList } from '../data/gamesCatalog'
+import useGameBrowser from '../hooks/useGameBrowser'
+import GameFilters from '../components/GameFilters'
+import GamesFooter from '../components/GamesFooter'
+import GamesGrid from '../components/GamesGrid'
 import { useCallback, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 
 /**
  * Crash Games — copiado desde Stitch (proyecto 10370446589462300119).
@@ -10,7 +11,28 @@ import { Link } from 'react-router-dom'
 const WINNERS_INTERVAL_MS = 4000
 const WINNERS_GAP_PX = 16
 
+const CRASH_FILTERS = [
+  { key: 'all', label: 'Lobby', icon: 'fa-solid fa-house text-amber-400', filter: { mode: 'type', value: 'crash' } },
+]
+
 export default function CrashGames() {
+  const {
+    games,
+    status,
+    error,
+    retry,
+    pagination,
+    hasMore,
+    loadingMore,
+    loadMore,
+    brands,
+    brand,
+    select,
+    selectBrand,
+  } = useGameBrowser({ category: 'crash', baseMode: 'type', baseValue: 'crash', brandMode: 'client' })
+
+  const activeKey = brand ? null : 'all'
+
   const winnersRef = useRef(null)
 
   const stepWinners = useCallback((direction) => {
@@ -166,86 +188,16 @@ export default function CrashGames() {
       </div></div></section><div className="flex-1 max-w-[1920px] w-full mx-auto flex border-t border-[#d4af37]/20 flex-col lg:flex-row">
 
       <aside className="w-full lg:w-64 xl:w-72 shrink-0 bg-[#07080b]/75 backdrop-blur-sm border-b lg:border-b-0 lg:border-r border-[#d4af37]/20 py-3 lg:py-6 px-4 flex flex-col gap-4 lg:gap-8 lg:overflow-y-auto lg:max-h-[calc(100vh-80px)] lg:sticky lg:top-20" data-purpose="casino-navigation-sidebar">
-
-      <div><div className="flex items-center gap-2 mb-3 px-3"><h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase">Crash Games</h2></div><nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2.5 lg:gap-0 lg:space-y-1 pb-2 lg:pb-0 scroll-smooth" id="casino-nav-menu"><Link to="/crash-games" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#d4af37]/15 border border-[#d4af37]/40 text-white font-medium text-sm shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
-      <span className="flex items-center"><i className="fa-solid fa-house w-5 text-center mr-3 text-amber-400 text-sm drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"></i><span className="font-semibold text-white">Lobby</span></span>
-      <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon"></i>
-      </Link>
-      <Link to="/crash-games" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
-      <span className="flex items-center"><i className="fa-solid fa-fire w-5 text-center mr-3 text-[#ff5722] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(255,87,34,0.4)]"></i><span className="">Popular Games</span></span>
-      <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </Link>
-      <Link to="/account" className="casino-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full">
-      <span className="flex items-center"><i className="fa-solid fa-heart w-5 text-center mr-3 text-[#f43f5e] text-sm group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(244,63,94,0.4)]"></i><span className="">My Favorites</span></span>
-      <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-      </Link></nav></div>
-
-      <div className="pt-2">
-        <div className="flex items-center gap-2 mb-3 px-3">
-          <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase">By Provider</h2>
-        </div>
-        <nav className="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2.5 lg:gap-0 lg:space-y-1 pb-2 lg:pb-0 scroll-smooth" id="provider-nav-menu">
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#d4af37]/15 border border-[#d4af37]/40 text-white font-medium text-sm shadow-[0_0_15px_rgba(212,175,55,0.15)] transition-all cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center">
-              <i className="fa-solid fa-gem w-5 text-center mr-3 text-amber-400 text-sm drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"></i>
-              <span className="font-semibold text-white">All providers</span>
-            </span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-dice w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">RubyPlay</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-fire w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">Habanero</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-star w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">IGT</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-gamepad w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">1X2 Gaming</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-gem w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">Betsoft</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-rocket w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">Booming Games</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-ticket w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">BNG</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-dice w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">BTG</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-gamepad w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">Evoplay</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-    
-          <a className="provider-nav-item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.04] border border-transparent font-medium text-sm transition-all duration-200 cursor-pointer group shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full" href="javascript:void(0)">
-            <span className="flex items-center"><i className="fa-solid fa-heart w-5 text-center mr-3 text-slate-400 text-sm group-hover:text-[#d4af37] transition-colors"></i><span className="truncate">GameArt</span></span>
-            <i className="fa-solid fa-chevron-right text-[10px] text-amber-400/80 chevron-icon hidden"></i>
-          </a>
-        </nav>
-      </div>
-      </aside>
+      <GameFilters
+        title="Crash Games"
+        items={CRASH_FILTERS}
+        brands={brands}
+        activeKey={activeKey}
+        activeBrand={brand?.id ?? null}
+        onSelect={select}
+        onSelectBrand={selectBrand}
+      />
+    </aside>
 
 
       <div className="flex-1 min-w-0 bg-black/40 p-4 sm:p-6 lg:p-8" data-purpose="casino-games-catalog">
@@ -258,7 +210,7 @@ export default function CrashGames() {
       <h1 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">Crash Lobby</h1>
       </div>
 
-      <span className="bg-white/[0.06] border border-white/10 text-xs font-medium tracking-wide px-3 py-1 rounded-full inline-flex items-center gap-1"><span className="font-bold text-white">12</span><span className="text-slate-400 font-normal">Games</span></span>
+      <span className="bg-white/[0.06] border border-white/10 text-xs font-medium tracking-wide px-3 py-1 rounded-full inline-flex items-center gap-1"><span className="font-bold text-white">{pagination?.total ?? games.length}</span><span className="text-slate-400 font-normal">Games</span></span>
       </div>
 
       <div className="relative w-full md:w-80">
@@ -270,17 +222,23 @@ export default function CrashGames() {
       </div>
 
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 xl:gap-3" data-purpose="games-grid">
-        {crashGameList.map((game) => (
-          <GameCard key={game.id} game={game} to={`/games/${game.id}`} />
-        ))}
-      </div>
+      <GamesGrid
+        className="grid grid-cols-2 gap-4 lg:grid-cols-4 md:grid-cols-3 xl:grid-cols-5 xl:gap-3"
+        games={games}
+        status={status}
+        error={error}
+        retry={retry}
+      />
 
 
-      <div className="mt-12 mb-6 flex flex-col items-center justify-center gap-3">
-      <p className="text-xs text-slate-500">Showing <span className="text-white font-bold">12</span> of <span className="text-white font-bold">12</span> games</p>
-      <button className="mt-2 px-8 py-3 rounded-xl bg-[#121317] hover:bg-[#1c1e24] border border-white/10 text-white text-xs font-bold transition-all hover:border-[#E6A15C]/40 shadow-lg cursor-pointer inline-flex items-center justify-center gap-2.5"><i className="fa-solid fa-rotate-right text-[#d4af37] text-xs transition-transform duration-500 hover:rotate-180"></i><span className="">LOAD MORE GAMES</span></button>
-      </div>
+      <GamesFooter
+        shown={games.length}
+        total={Number(pagination?.total ?? games.length)}
+        hasMore={hasMore}
+        loadingMore={loadingMore}
+        onLoadMore={loadMore}
+        label="games"
+      />
       </div>
 
       </div>

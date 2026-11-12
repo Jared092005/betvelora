@@ -8,7 +8,7 @@ dist-ssr
 # Entorno
 .env
 .env.*
-!.env.example
+.env.example
 
 # Vercel (ids de proyecto/org que crea el CLI al hacer `vercel link`)
 .vercel
@@ -53,3 +53,6 @@ Desktop.ini
 *.bak
 *.orig
 *.rej
+
+# Documentación
+openapi.yaml

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import GameCarousel from '../components/GameCarousel'
-import { homeGameSections } from '../data/homeGames'
+import { Link } from 'react-router-dom'
+import { listBrands, listByCategory, listByType, listNew } from '../api/games'
+import GamesCarousel from '../components/GamesCarousel'
+import useGames from '../hooks/useGames'
+import useGameCounts from '../hooks/useGameCounts'
 
 /**
  * Home — copiado desde Stitch (proyecto 10370446589462300119).
@@ -24,11 +26,43 @@ function promoSlideStyle(index, activePromo) {
 }
 
 export default function Home() {
-  const navigate = useNavigate()
   const [activePromo, setActivePromo] = useState(0)
   const [promoTick, setPromoTick] = useState(0)
 
-  const openGame = (game) => navigate(`/games/${game.id}`)
+  const slotsSection = useGames('home:slots', ({ signal }) =>
+    listByCategory('casino', { signal, perPage: 12 }),
+  )
+  const crashSection = useGames('home:crash', ({ signal }) =>
+    listByType('crash', { signal, perPage: 12 }),
+  )
+  const liveSection = useGames('home:live', ({ signal }) =>
+    listByCategory('casino_live', { signal, perPage: 12 }),
+  )
+  const newSection = useGames('home:new', ({ signal }) =>
+    listNew({ signal, perPage: 12 }),
+  )
+
+  const counts = useGameCounts()
+  const [providers, setProviders] = useState([])
+  const [providerQuery, setProviderQuery] = useState('')
+
+  useEffect(() => {
+    let active = true
+    listBrands()
+      .then((list) => {
+        if (active) setProviders((list || []).map((brand) => ({ id: String(brand.Id), name: brand.Name })))
+      })
+      .catch(() => {
+        if (active) setProviders([])
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  const filteredProviders = providers.filter((provider) =>
+    provider.name.toLowerCase().includes(providerQuery.trim().toLowerCase()),
+  )
 
   const goToPromo = (index) => {
     setActivePromo(((index % PROMO_SLIDES) + PROMO_SLIDES) % PROMO_SLIDES)
@@ -172,11 +206,11 @@ export default function Home() {
       <i className="fa-solid fa-fire text-velora-red w-4 text-center"></i>
       <span className="">Popular Picks</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">142</span>
+      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.popular ?? '…'}</span>
       </Link>
       </li>
       <li className="">
-      <Link to="/casino" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group"><div className="flex items-center gap-3"><i className="fa-solid fa-dice-d6 text-velora-gold w-4 text-center"></i><span className="">Slots &amp; Jackpots</span></div><span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">850+</span></Link>
+      <Link to="/casino?type=slot" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group"><div className="flex items-center gap-3"><i className="fa-solid fa-dice-d6 text-velora-gold w-4 text-center"></i><span className="">Slots</span></div><span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.slots ?? '…'}</span></Link>
       </li>
       <li className="">
       <Link to="/casino-live" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
@@ -184,7 +218,7 @@ export default function Home() {
       <i className="fa-solid fa-video text-emerald-400 w-4 text-center"></i>
       <span className="">Casino Live</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">120</span>
+      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.live ?? '…'}</span>
       </Link>
       </li>
       <li className="">
@@ -193,7 +227,7 @@ export default function Home() {
       <i className="fa-solid fa-chart-line text-blue-400 w-4 text-center"></i>
       <span className="">Crash Games</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">38</span>
+      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.crash ?? '…'}</span>
       </Link>
       </li>
       <li className="">
@@ -202,16 +236,16 @@ export default function Home() {
       <svg className="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" stroke="none" viewBox="0 0 24 24"><path d="M12 2C9.5 5.5 6 8.5 6 12c0 2.8 2.2 4.5 4.5 4.5.8 0 1.5-.2 2-.6.1.5-.2 1.6-1.5 2.6H8v1.5h8V18.5h-3c-1.3-1-1.6-2.1-1.5-2.6.5.4 1.2.6 2 .6 2.3 0 4.5-1.7 4.5-4.5 0-3.5-3.5-6.5-6-10z"></path></svg>
       <span className="">Poker Rooms</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">24</span>
+      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.poker ?? '…'}</span>
       </Link>
       </li>
       <li className="">
-      <Link to="/casino" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
+      <Link to="/casino?type=scratch" className="flex items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group">
       <div className="flex items-center gap-3">
       <i className="fa-solid fa-ticket text-amber-400 w-4 text-center"></i>
       <span className="">Scratch &amp; Lotteries</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">19</span>
+      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.scratch ?? '…'}</span>
       </Link>
       </li>
       <li className="">
@@ -220,7 +254,7 @@ export default function Home() {
       <i className="fa-solid fa-trophy text-slate-400 w-4 text-center"></i>
       <span className="">Virtual Sports</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">45</span>
+      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300">{counts.virtual ?? '…'}</span>
       </Link>
       </li>
       </ul>
@@ -231,51 +265,32 @@ export default function Home() {
       <h3 className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-400">
                   Top Providers
                 </h3>
-      <span className="text-[10px] text-velora-gold cursor-pointer hover:underline">All (34)</span>
+      <span className="text-[10px] text-velora-gold">All ({providers.length})</span>
       </div>
 
       <div className="relative my-3 cursor-pointer">
-      <input className="w-full bg-[#08090E] border border-white/5 focus:border-velora-gold/40 rounded-lg py-2 pl-8 pr-3 text-[11px] text-white placeholder-slate-600 focus:outline-none cursor-pointer" placeholder="Search provider..." type="text" />
+      <input className="w-full bg-[#08090E] border border-white/5 focus:border-velora-gold/40 rounded-lg py-2 pl-8 pr-3 text-[11px] text-white placeholder-slate-600 focus:outline-none" placeholder="Search provider..." type="text" value={providerQuery} onChange={(event) => setProviderQuery(event.target.value)} />
       <i className="fa-solid fa-filter absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-600 text-[10px]"></i>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 mt-2">
+      <div className="mt-2 grid max-h-72 grid-cols-2 gap-2 overflow-y-auto pr-1 custom-scrollbar">
+      {filteredProviders.map((provider) => (
+        <Link
+          key={provider.id}
+          to={`/casino?brand=${provider.id}`}
+          className="group flex h-12 items-center justify-center rounded-xl border border-white/5 bg-[#0A0C13] p-2 transition-all hover:border-velora-gold/40 hover:bg-[#121622]"
+        >
+          <span className="flex max-w-full items-center gap-1.5 text-xs font-black uppercase tracking-wider text-slate-400 transition-colors group-hover:text-velora-gold">
+            <span className="truncate">{provider.name}</span>
+          </span>
+        </Link>
+      ))}
 
-      <button className="h-12 bg-[#0A0C13] hover:bg-[#121622] border border-white/5 hover:border-velora-gold/40 rounded-xl flex items-center justify-center p-2 transition-all group">
-      <span className="text-xs font-black tracking-wider uppercase text-slate-400 group-hover:text-velora-red flex items-center gap-1.5 transition-colors">
-      <i className="fa-solid fa-gem text-xs text-velora-red"></i> RubyPlay
-                  </span>
-      </button>
-
-      <button className="h-12 bg-[#0A0C13] hover:bg-[#121622] border border-white/5 hover:border-velora-gold/40 rounded-xl flex items-center justify-center p-2 transition-all group">
-      <span className="text-xs font-black tracking-wider uppercase text-slate-400 group-hover:text-amber-500 flex items-center gap-1.5 transition-colors">
-      <i className="fa-solid fa-pepper-hot text-xs text-amber-500"></i> Habanero
-                  </span>
-      </button>
-
-      <button className="h-12 bg-[#0A0C13] hover:bg-[#121622] border border-white/5 hover:border-velora-gold/40 rounded-xl flex items-center justify-center p-2 transition-all group">
-      <span className="text-xs font-black tracking-wider uppercase text-slate-400 group-hover:text-cyan-400 flex items-center gap-1.5 transition-colors">
-      <i className="fa-solid fa-play text-xs text-cyan-400"></i> Evolution
-                  </span>
-      </button>
-
-      <button className="h-12 bg-[#0A0C13] hover:bg-[#121622] border border-white/5 hover:border-velora-gold/40 rounded-xl flex items-center justify-center p-2 transition-all group">
-      <span className="text-xs font-black tracking-wider uppercase text-slate-400 group-hover:text-orange-400 flex items-center gap-1.5 transition-colors">
-      <i className="fa-solid fa-crown text-xs text-orange-400"></i> Pragmatic
-                  </span>
-      </button>
-
-      <button className="h-12 bg-[#0A0C13] hover:bg-[#121622] border border-white/5 hover:border-velora-gold/40 rounded-xl flex items-center justify-center p-2 transition-all group">
-      <span className="text-xs font-black tracking-wider uppercase text-slate-400 group-hover:text-blue-400 flex items-center gap-1.5 transition-colors">
-      <i className="fa-solid fa-circle-notch text-xs text-blue-400"></i> IGT
-                  </span>
-      </button>
-
-      <button className="h-12 bg-[#0A0C13] hover:bg-[#121622] border border-white/5 hover:border-velora-gold/40 rounded-xl flex items-center justify-center p-2 transition-all group">
-      <span className="text-xs font-black tracking-wider uppercase text-slate-400 group-hover:text-emerald-400 flex items-center gap-1.5 transition-colors">
-      <i className="fa-solid fa-bolt text-xs text-emerald-400"></i> 1X2Gaming
-                  </span>
-      </button>
+      {filteredProviders.length === 0 && (
+        <span className="col-span-2 px-2 py-3 text-center text-[11px] text-slate-500">
+          Sin resultados
+        </span>
+      )}
       </div>
       </div>
 
@@ -312,7 +327,7 @@ export default function Home() {
       <Link to="/casino" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link>
       </div>
 
-      <GameCarousel games={homeGameSections.slots} label="juegos de slots" onPlay={openGame} />
+      <GamesCarousel {...slotsSection} label="juegos de slots" />
       </section>
 
       <section data-purpose="crash-games-section">
@@ -325,7 +340,7 @@ export default function Home() {
       <Link to="/crash-games" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link>
       </div>
 
-      <GameCarousel games={homeGameSections.crashGames} label="juegos crash" onPlay={openGame} />
+      <GamesCarousel {...crashSection} label="juegos crash" />
       </section>
 
       <section data-purpose="live-casino-section">
@@ -339,7 +354,7 @@ export default function Home() {
       </div>
       <Link to="/casino-live" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-red/15 border border-velora-red/30 hover:bg-velora-red text-velora-red hover:text-white text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link></div>
 
-      <GameCarousel games={homeGameSections.casinoLive} label="mesas en vivo" onPlay={openGame} />
+      <GamesCarousel {...liveSection} label="mesas en vivo" />
       </section>
 
       <section data-purpose="new-games-section">
@@ -352,7 +367,7 @@ export default function Home() {
       <Link to="/casino" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-gold/15 border border-velora-gold/30 hover:bg-velora-gold text-velora-gold hover:text-slate-900 text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link>
       </div>
 
-      <GameCarousel games={homeGameSections.newGames} label="juegos nuevos" onPlay={openGame} />
+      <GamesCarousel {...newSection} label="juegos nuevos" />
       </section>
 
       </div>

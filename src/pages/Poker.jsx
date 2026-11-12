@@ -1,10 +1,33 @@
-import GameCard from '../components/GameCard'
-import { pokerGames } from '../data/gamesCatalog'
+import useGameBrowser from '../hooks/useGameBrowser'
+import GameFilters from '../components/GameFilters'
+import GamesFooter from '../components/GamesFooter'
+import GamesGrid from '../components/GamesGrid'
 /**
  * Poker — copiado desde Stitch (proyecto 10370446589462300119).
  * Generado automáticamente; el marcado es el original del diseño.
  */
+const POKER_FILTERS = [
+  { key: 'all', label: 'All games', icon: 'fa-solid fa-table-cells text-[#d4af37]', filter: { mode: 'category', value: 'poker' } },
+]
+
 export default function Poker() {
+  const {
+    games,
+    status,
+    error,
+    retry,
+    pagination,
+    hasMore,
+    loadingMore,
+    loadMore,
+    brands,
+    brand,
+    select,
+    selectBrand,
+  } = useGameBrowser({ category: 'poker' })
+
+  const activeKey = brand ? null : 'all'
+
 
   return (
     <div className="bg-[#000000] text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-[#d4af37]/30 selection:text-white">
@@ -149,27 +172,40 @@ export default function Poker() {
 
       <div className="flex-1 max-w-[1920px] w-full mx-auto px-4 lg:px-8 py-8 flex flex-col lg:flex-row gap-8" data-purpose="poker-main-layout">
 
-      <aside className="w-full lg:w-64 shrink-0 flex flex-col gap-6" data-purpose="poker-sidebar"><div><h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-3 px-1">POKER</h2><nav aria-label="Game Filter Options" className="flex lg:flex-col gap-2 overflow-x-auto pb-1 lg:pb-0" style={{ scrollbarWidth: 'none' }}><a className="w-[calc(50%-0.25rem)] shrink-0 lg:w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#f3e5ab] font-semibold text-sm shadow-[0_0_12px_rgba(212,175,55,0.15)] transition-all cursor-pointer" href="#"><div className="flex items-center gap-2.5 truncate"><svg className="w-4 h-4 text-[#d4af37] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm14 2H6v8h12V8z"></path></svg><span className="truncate">All games</span></div><svg className="w-3.5 h-3.5 text-[#d4af37] shrink-0 hidden lg:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path></svg></a><a className="w-[calc(50%-0.25rem)] shrink-0 lg:w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 font-semibold text-sm border border-transparent transition-all cursor-pointer group" href="#"><div className="flex items-center gap-2.5 truncate"><i className="fa-regular fa-heart text-sm text-slate-400 group-hover:text-white transition-colors shrink-0"></i><span className="truncate">Favorites</span></div></a></nav></div><div className="h-px bg-white/[0.08] w-full hidden lg:block"></div><div><h2 className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-3 px-1">BY PROVIDER</h2><nav aria-label="Poker Providers" className="flex lg:flex-col gap-1.5 overflow-x-auto pb-1 lg:pb-0 scroll-smooth" style={{ scrollbarWidth: 'none' }}><a className="w-[calc(33.333%-0.5rem)] min-w-[110px] shrink-0 lg:w-full text-slate-400 hover:text-[#d4af37] hover:bg-white/[0.04] border border-white/[0.06] lg:border-transparent hover:border-[#d4af37]/30 rounded-xl px-3.5 py-2 flex items-center justify-between transition-all cursor-pointer group" href="#"><span className="text-xs font-medium tracking-wide truncate">LordPoker</span></a><a className="w-[calc(33.333%-0.5rem)] min-w-[110px] shrink-0 lg:w-full text-slate-400 hover:text-[#d4af37] hover:bg-white/[0.04] border border-white/[0.06] lg:border-transparent hover:border-[#d4af37]/30 rounded-xl px-3.5 py-2 flex items-center justify-between transition-all cursor-pointer group" href="#"><span className="text-xs font-medium tracking-wide truncate">Evolution Poker</span></a><a className="w-[calc(33.333%-0.5rem)] min-w-[110px] shrink-0 lg:w-full text-slate-400 hover:text-[#d4af37] hover:bg-white/[0.04] border border-white/[0.06] lg:border-transparent hover:border-[#d4af37]/30 rounded-xl px-3.5 py-2 flex items-center justify-between transition-all cursor-pointer group" href="#"><span className="text-xs font-medium tracking-wide truncate">Ezugi</span></a><a className="w-[calc(33.333%-0.5rem)] min-w-[110px] shrink-0 lg:w-full text-slate-400 hover:text-[#d4af37] hover:bg-white/[0.04] border border-white/[0.06] lg:border-transparent hover:border-[#d4af37]/30 rounded-xl px-3.5 py-2 flex items-center justify-between transition-all cursor-pointer group" href="#"><span className="text-xs font-medium tracking-wide truncate">Playtech Poker</span></a><a className="w-[calc(33.333%-0.5rem)] min-w-[110px] shrink-0 lg:w-full text-slate-400 hover:text-[#d4af37] hover:bg-white/[0.04] border border-white/[0.06] lg:border-transparent hover:border-[#d4af37]/30 rounded-xl px-3.5 py-2 flex items-center justify-between transition-all cursor-pointer group" href="#"><span className="text-xs font-medium tracking-wide truncate">Pragmatic Play</span></a></nav></div></aside>
+      <aside className="w-full lg:w-64 shrink-0 flex flex-col gap-6" data-purpose="poker-sidebar">
+      <GameFilters
+        title="Poker"
+        items={POKER_FILTERS}
+        brands={brands}
+        activeKey={activeKey}
+        activeBrand={brand?.id ?? null}
+        onSelect={select}
+        onSelectBrand={selectBrand}
+      />
+    </aside>
 
 
       <section className="flex-1 flex flex-col gap-6" data-purpose="poker-games-view">
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2"><div className="flex items-center gap-3.5"><div className="w-10 h-10 rounded-xl bg-white/[0.08] border border-white/10 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.25)]"><svg className="w-5 h-5 text-white fill-current" viewBox="0 0 24 24"><path d="M12 2.25c-.32 0-.62.14-.83.39C9.28 4.96 4.5 10.64 4.5 14.5c0 3.17 2.47 5.75 5.56 5.75.96 0 1.86-.25 2.66-.69-.17.84-.52 2.15-1.97 2.69-.32.12-.5.45-.44.78.06.33.35.57.69.57h3c.34 0 .63-.24.69-.57.06-.33-.12-.66-.44-.78-1.45-.54-1.8-1.85-1.97-2.69.8.44 1.7.69 2.66.69 3.09 0 5.56-2.58 5.56-5.75 0-3.86-4.78-9.54-6.67-11.86-.21-.25-.51-.39-.83-.39z"></path></svg></div><div className="flex items-center gap-2.5"><h1 className="font-serif text-2xl font-bold uppercase tracking-wider text-white">POKER</h1><span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-slate-400 tracking-wider">24 Games</span></div></div><div className="relative w-full sm:w-72 md:w-80" data-purpose="poker-search-container"><div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i className="fa-solid fa-magnifying-glass text-xs"></i></div><input className="w-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-500 transition-all outline-none" placeholder="Search poker game..." type="text" /></div></div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2"><div className="flex items-center gap-3.5"><div className="w-10 h-10 rounded-xl bg-white/[0.08] border border-white/10 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.25)]"><svg className="w-5 h-5 text-white fill-current" viewBox="0 0 24 24"><path d="M12 2.25c-.32 0-.62.14-.83.39C9.28 4.96 4.5 10.64 4.5 14.5c0 3.17 2.47 5.75 5.56 5.75.96 0 1.86-.25 2.66-.69-.17.84-.52 2.15-1.97 2.69-.32.12-.5.45-.44.78.06.33.35.57.69.57h3c.34 0 .63-.24.69-.57.06-.33-.12-.66-.44-.78-1.45-.54-1.8-1.85-1.97-2.69.8.44 1.7.69 2.66.69 3.09 0 5.56-2.58 5.56-5.75 0-3.86-4.78-9.54-6.67-11.86-.21-.25-.51-.39-.83-.39z"></path></svg></div><div className="flex items-center gap-2.5"><h1 className="font-serif text-2xl font-bold uppercase tracking-wider text-white">POKER</h1><span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-slate-400 tracking-wider">{pagination?.total ?? games.length} Games</span></div></div><div className="relative w-full sm:w-72 md:w-80" data-purpose="poker-search-container"><div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i className="fa-solid fa-magnifying-glass text-xs"></i></div><input className="w-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-500 transition-all outline-none" placeholder="Search poker game..." type="text" /></div></div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5 xl:grid-cols-5 xl:gap-3" data-purpose="games-grid">
-        {pokerGames.map((game) => (
-          <GameCard key={game.id} game={game} to={`/games/${game.id}`} />
-        ))}
-      </div>
+      <GamesGrid
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5 xl:grid-cols-5 xl:gap-3"
+        games={games}
+        status={status}
+        error={error}
+        retry={retry}
+      />
 
 
-      <div className="mt-12 mb-6 flex flex-col items-center justify-center gap-3">
-      <p className="text-xs text-slate-500 mb-3">Showing <span className="text-white font-medium">12</span> of <span className="text-white font-medium">24</span> games</p>
-      <button className="mt-2 px-8 py-3 rounded-xl bg-[#121317] hover:bg-[#1c1e24] border border-white/10 text-white text-xs font-bold transition-all hover:border-[#d4af37]/40 shadow-lg cursor-pointer inline-flex items-center justify-center gap-2.5">
-      <i className="fa-solid fa-rotate-right text-[#d4af37] text-xs transition-transform duration-500 hover:rotate-180"></i>
-      <span className="">LOAD MORE GAMES</span>
-      </button>
-      </div>
+      <GamesFooter
+        shown={games.length}
+        total={Number(pagination?.total ?? games.length)}
+        hasMore={hasMore}
+        loadingMore={loadingMore}
+        onLoadMore={loadMore}
+        label="games"
+      />
       </section>
 
       </div>

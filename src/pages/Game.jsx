@@ -1,23 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { getGame, listByProvider } from '../api/games'
 import GameCard from '../components/GameCard'
-import { findGame, GAME_CATALOG } from '../data/gamesCatalog'
 import { useLanguage } from '../i18n'
 
 /**
  * Game — copiado de la pantalla "Game - Aztec Empire" de Stitch
  * (proyecto 10370446589462300119), con el header y el footer de la app.
- * "More from <proveedor>" usa el mismo GameCard que el resto del sitio.
+ * Los datos (nombre, portada, proveedor y "More from") vienen de la API real.
  */
-const HERO_IMAGES = { 'aztec-empire': '/screens/game/8f43979c416c.jpg' }
-const DEFAULT_GAME_ID = 'aztec-empire'
-
 export default function Game() {
   const { gameId } = useParams()
 
   // La key fuerza un montaje nuevo al cambiar de juego, de modo que
   // todo el contenido (título, imagen, "More from...") se refresque.
-  return <GameScreen key={gameId ?? DEFAULT_GAME_ID} gameId={gameId} />
+  return <GameScreen key={gameId ?? 'game'} gameId={gameId} />
 }
 
 function GameScreen({ gameId }) {
@@ -26,17 +23,70 @@ function GameScreen({ gameId }) {
   const [isFavorite, setIsFavorite] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const [game, setGame] = useState(null)
+  const [status, setStatus] = useState('loading')
+  const [error, setError] = useState(null)
+  const [reloadKey, setReloadKey] = useState(0)
+  const [relatedGames, setRelatedGames] = useState([])
   const viewportRef = useRef(null)
 
   const isEs = language === 'es'
   const tr = (es, en) => (isEs ? es : en)
 
-  const game = findGame(gameId) ?? findGame(DEFAULT_GAME_ID) ?? GAME_CATALOG[0]
+  const heroImage = game?.image ?? null
 
-  const providerGames = GAME_CATALOG.filter((item) => item.provider === game.provider)
-  const otherGames = providerGames.filter((item) => item.id !== game.id)
-  const relatedGames = (otherGames.length >= 4 ? otherGames : providerGames).slice(0, 4)
-  const heroImage = HERO_IMAGES[game.id] ?? game.image
+  // ── Juego y "More from <proveedor>" desde la API ────────────
+  useEffect(() => {
+    const controller = new AbortController()
+    let active = true
+
+    async function load() {
+      setStatus('loading')
+      setError(null)
+
+      try {
+        const result = await getGame(gameId, { signal: controller.signal })
+        if (!active) return
+        if (!result) throw new Error(tr('Juego no encontrado', 'Game not found'))
+        setGame(result)
+        setStatus('ready')
+      } catch (err) {
+        if (!active || err.name === 'AbortError') return
+        setError(err.message || tr('No se pudo cargar el juego', 'Could not load the game'))
+        setStatus('error')
+      }
+    }
+
+    load()
+
+    return () => {
+      active = false
+      controller.abort()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameId, reloadKey])
+
+  useEffect(() => {
+    if (!game?.providerId) return undefined
+    const controller = new AbortController()
+    let active = true
+
+    listByProvider(game.providerId, { signal: controller.signal, perPage: 5 })
+      .then((result) => {
+        if (!active) return
+        const others = result.games.filter((item) => item.id !== game.id)
+        setRelatedGames((others.length ? others : result.games).slice(0, 4))
+      })
+      .catch((err) => {
+        if (!active || err.name === 'AbortError') return
+        setRelatedGames([])
+      })
+
+    return () => {
+      active = false
+      controller.abort()
+    }
+  }, [game?.providerId, game?.id])
 
   // Vuelve a la pantalla anterior: home, casino, casino-live u otro juego.
   // Si se entró directo por URL no hay historial y se cae en la home.
@@ -125,11 +175,11 @@ function GameScreen({ gameId }) {
                 />
               </svg>
             </button>
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <h1 className="flex items-center gap-2 text-base font-bold leading-tight tracking-wide text-white sm:text-lg">
-                {game.name}
+                {game?.name ?? ''}
               </h1>
-              <p className="text-xs font-medium text-slate-400 sm:text-sm">{game.provider}</p>
+              <p className="text-xs font-medium text-slate-400 sm:text-sm">{game?.provider ?? ''}</p>
             </div>
           </div>
 
@@ -242,12 +292,31 @@ function GameScreen({ gameId }) {
                   : 'relative aspect-[16/9] min-h-[380px] rounded-2xl border border-white/10 sm:min-h-[460px] md:min-h-[520px]'
               }`}
             >
-              {/* De momento solo se muestra la portada del juego */}
-              <img
-                src={heroImage}
-                alt={`${game.name} — ${game.provider}`}
-                className={`h-full w-full ${expanded ? 'object-contain' : 'object-cover'}`}
-              />
+              {/* Portada del juego (o estado de carga / error) */}
+              {status === 'error' ? (
+                <div className="flex h-full min-h-[380px] w-full flex-col items-center justify-center gap-3 p-6 text-center">
+                  <i className="fa-solid fa-triangle-exclamation text-2xl text-velora-red" />
+                  <p className="text-sm font-semibold text-white">
+                    {tr('No se pudo cargar el juego', 'Could not load the game')}
+                  </p>
+                  {error && <p className="text-xs text-slate-400">{error}</p>}
+                  <button
+                    type="button"
+                    onClick={() => setReloadKey((value) => value + 1)}
+                    className="btn-primary mt-2 px-5 py-2.5 text-xs uppercase tracking-wider"
+                  >
+                    {tr('Reintentar', 'Retry')}
+                  </button>
+                </div>
+              ) : heroImage ? (
+                <img
+                  src={heroImage}
+                  alt={`${game?.name ?? ''} — ${game?.provider ?? ''}`}
+                  className={`h-full w-full ${expanded ? 'object-contain' : 'object-cover'}`}
+                />
+              ) : (
+                <div className="h-full w-full animate-pulse bg-[#181a20]" />
+              )}
 
               {isExpanded && (
                 <button
@@ -269,10 +338,12 @@ function GameScreen({ gameId }) {
             </div>
 
             {/* En mobile/tablet el nombre va debajo del visor (en desktop está en la barra) */}
-            <div className="mt-4 lg:hidden">
-              <h2 className="text-base font-bold tracking-wide text-white sm:text-lg">{game.name}</h2>
-              <p className="text-xs font-medium text-slate-400 sm:text-sm">{game.provider}</p>
-            </div>
+            {game && (
+              <div className="mt-4 xl:hidden">
+                <h2 className="text-base font-bold tracking-wide text-white sm:text-lg">{game.name}</h2>
+                <p className="text-xs font-medium text-slate-400 sm:text-sm">{game.provider}</p>
+              </div>
+            )}
           </section>
 
           <aside aria-label={tr('Panel de usuario', 'User panel')} className="lg:col-span-3 xl:col-span-3">
@@ -297,33 +368,49 @@ function GameScreen({ gameId }) {
                 </Link>
               </div>
               <div className="mt-6 hidden border-t border-white/[0.08] pt-6 xl:block">
-                <h3 className="text-sm font-semibold tracking-wide text-white">{game.name}</h3>
-                <p className="mt-0.5 text-xs text-slate-400">{game.provider}</p>
+                <h3 className="text-sm font-semibold tracking-wide text-white">{game?.name ?? ''}</h3>
+                <p className="mt-0.5 text-xs text-slate-400">{game?.provider ?? ''}</p>
               </div>
             </div>
           </aside>
         </main>
 
         {/* ================= Más del proveedor ================= */}
-        <section
-          aria-labelledby="more-games-heading"
-          className="mt-4 pt-2"
-          data-purpose="related-games-shelf"
-        >
-          <div className="mb-4 flex items-center justify-between">
-            <h2
-              id="more-games-heading"
-              className="text-lg font-bold tracking-wide text-white sm:text-xl"
-            >
-              {tr(`Más de ${game.provider}`, `More from ${game.provider}`)}
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">
-            {relatedGames.map((related) => (
-              <GameCard key={related.id} game={related} to={`/games/${related.id}`} />
-            ))}
-          </div>
-        </section>
+        {game && (
+          <section
+            aria-labelledby="more-games-heading"
+            className="mt-4 pt-2"
+            data-purpose="related-games-shelf"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h2
+                id="more-games-heading"
+                className="text-lg font-bold tracking-wide text-white sm:text-xl"
+              >
+                {tr(`Más de ${game.provider}`, `More from ${game.provider}`)}
+              </h2>
+            </div>
+            {relatedGames.length > 0 ? (
+              <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">
+                {relatedGames.map((related) => (
+                  <GameCard key={related.id} game={related} to={`/games/${related.id}`} />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div key={index} className="animate-pulse">
+                    <div className="aspect-square w-full rounded-2xl border border-white/[0.08] bg-[#181a20]" />
+                    <div className="space-y-2 px-1 pt-2">
+                      <div className="h-3 w-3/4 rounded bg-white/10" />
+                      <div className="h-2.5 w-1/3 rounded bg-white/5" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </div>
     </div>
   )

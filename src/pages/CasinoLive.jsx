@@ -1,10 +1,33 @@
-import GameCard from '../components/GameCard'
-import { casinoLiveGames } from '../data/gamesCatalog'
+import useGameBrowser from '../hooks/useGameBrowser'
+import GameFilters from '../components/GameFilters'
+import GamesFooter from '../components/GamesFooter'
+import GamesGrid from '../components/GamesGrid'
 /**
  * Casino Live — copiado desde Stitch (proyecto 10370446589462300119).
  * Generado automáticamente; el marcado es el original del diseño.
  */
+const LIVE_FILTERS = [
+  { key: 'all', label: 'Todos los juegos', icon: 'fa-solid fa-table-cells text-[#d4af37]', filter: { mode: 'category', value: 'casino_live' } },
+]
+
 export default function CasinoLive() {
+  const {
+    games,
+    status,
+    error,
+    retry,
+    pagination,
+    hasMore,
+    loadingMore,
+    loadMore,
+    brands,
+    brand,
+    select,
+    selectBrand,
+  } = useGameBrowser({ category: 'casino_live' })
+
+  const activeKey = brand ? null : 'all'
+
 
   return (
     <div className="bg-[#070709] text-slate-200 min-h-screen flex flex-col selection:bg-[#d4af37] selection:text-black">
@@ -41,31 +64,16 @@ export default function CasinoLive() {
       <div className="flex flex-col lg:flex-row gap-8 items-start">
 
       <aside className="w-full lg:w-64 shrink-0 space-y-5 lg:space-y-7" data-purpose="live-sidebar">
-      <div>
-      <h1 className="text-xl font-bold tracking-tight text-white mb-3 lg:mb-4">Casino Live</h1>
-      <nav aria-label="Game Filter Options" className="flex flex-row lg:flex-col gap-2 lg:gap-1.5 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scroll-smooth" style={{ scrollbarWidth: 'none' }}>
-      <a className="flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/40 text-[#f3e5ab] font-semibold text-sm shadow-[0_0_12px_rgba(212,175,55,0.15)] transition-all cursor-pointer shrink-0 lg:w-full" href="#"><div className="flex items-center gap-2.5"><svg className="w-4 h-4 text-[#d4af37] shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm14 2H6v8h12V8z"></path></svg><span className="whitespace-nowrap">Todos los juegos</span></div><svg className="w-3.5 h-3.5 text-[#d4af37] shrink-0 hidden lg:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5"></path></svg></a>
-      <a className="flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 border border-white/[0.08] lg:border-transparent font-semibold text-sm transition-all cursor-pointer group shrink-0 lg:w-full" href="#"><div className="flex items-center gap-2.5"><i className="fa-regular fa-heart text-sm text-slate-400 group-hover:text-white transition-colors shrink-0"></i><span className="whitespace-nowrap">Favoritos</span></div></a>
-      </nav>
-      </div>
-      <div className="h-px bg-white/[0.08]"></div>
-      <div>
-      <span className="text-[11px] font-extrabold tracking-widest uppercase text-slate-500 block mb-2.5 lg:mb-3">BY TYPE</span>
-      <nav className="flex flex-row lg:flex-col gap-2 lg:gap-1 text-sm font-medium overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scroll-smooth" style={{ scrollbarWidth: 'none' }}><a className="flex items-center justify-between py-2.5 lg:py-2 px-3 rounded-xl lg:rounded-lg text-slate-300 hover:text-white hover:bg-white/5 bg-[#10121a] lg:bg-transparent border border-white/[0.08] lg:border-transparent transition-colors group cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="flex items-center gap-2.5 truncate"><svg className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="none" style={{ filter: 'drop-shadow(rgba(255, 255, 255, 0.45) 0px 0px 6px)' }} viewBox="0 0 24 24"><circle cx="12" cy="12" fill="#e60026" fillOpacity="0.12" r="9.5" stroke="#e60026" strokeWidth="1.5"></circle><circle cx="12" cy="12" r="6" stroke="#d4af37" strokeWidth="1.2"></circle><circle cx="12" cy="12" fill="#d4af37" r="2"></circle><path d="M12 2.5v3.5M12 18v3.5M2.5 12h3.5M18 12h3.5M5.28 5.28l2.47 2.47M16.25 16.25l2.47 2.47M5.28 18.72l2.47-2.47M16.25 7.75l2.47-2.47" stroke="#fca5a5" strokeLinecap="round" strokeWidth="1.1"></path></svg><span className="truncate">Roulette</span></span></a>
-      <a className="flex items-center justify-between py-2.5 lg:py-2 px-3 rounded-xl lg:rounded-lg text-slate-300 hover:text-white hover:bg-white/5 bg-[#10121a] lg:bg-transparent border border-white/[0.08] lg:border-transparent transition-colors group cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="flex items-center gap-2.5 truncate"><svg className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="none" style={{ filter: 'drop-shadow(rgba(255, 255, 255, 0.45) 0px 0px 6px)' }} viewBox="0 0 24 24"><rect fill="#10b981" fillOpacity="0.18" height="16" rx="2" stroke="#10b981" strokeWidth="1.4" width="12" x="2" y="5"></rect><path d="M8 5V3.5A1.5 1.5 0 0 1 9.5 2h9A1.5 1.5 0 0 1 20 3.5V17a1.5 1.5 0 0 1-1.5 1.5H16" stroke="#34d399" strokeWidth="1.4"></path><path d="M8 9.5c-.8 1.1-1.6 1.8-2.2 2.5h4.4C9.6 11.3 8.8 10.6 8 9.5zM8 12v3" stroke="#10b981" strokeLinecap="round" strokeWidth="1.2"></path><path d="M15.5 6.5h1.5M15.5 9h2" stroke="#a7f3d0" strokeLinecap="round" strokeWidth="1.2"></path></svg><span className="truncate">Blackjack</span></span></a>
-      <a className="flex items-center justify-between py-2.5 lg:py-2 px-3 rounded-xl lg:rounded-lg text-slate-300 hover:text-white hover:bg-white/5 bg-[#10121a] lg:bg-transparent border border-white/[0.08] lg:border-transparent transition-colors group cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="flex items-center gap-2.5 truncate"><svg className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="none" style={{ filter: 'drop-shadow(rgba(255, 255, 255, 0.45) 0px 0px 6px)' }} viewBox="0 0 24 24"><polygon fill="#6366f1" fillOpacity="0.2" points="12,2 21,12 12,22 3,12" stroke="#818cf8" strokeWidth="1.5"></polygon><polygon fill="none" points="12,6 18,12 12,18 6,12" stroke="#c7d2fe" strokeWidth="1"></polygon><circle cx="12" cy="12" fill="#e0e7ff" r="2.2" stroke="#818cf8" strokeWidth="0.8"></circle></svg><span className="truncate">Baccarat</span></span></a>
-      <a className="flex items-center justify-between py-2.5 lg:py-2 px-3 rounded-xl lg:rounded-lg text-slate-300 hover:text-white hover:bg-white/5 bg-[#10121a] lg:bg-transparent border border-white/[0.08] lg:border-transparent transition-colors group cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="flex items-center gap-2.5 truncate"><svg className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:scale-110" fill="none" style={{ filter: 'drop-shadow(rgba(255, 255, 255, 0.45) 0px 0px 6px)' }} viewBox="0 0 24 24"><path d="M12 2l2.35 5.51L20 8.27l-4.12 3.65 1.25 5.82L12 14.77l-5.13 2.97 1.25-5.82L4 8.27l5.65-.76L12 2z" fill="#fbbf24" fillOpacity="0.22" stroke="#f59e0b" strokeLinejoin="round" strokeWidth="1.4"></path><circle cx="12" cy="10.5" fill="#fef08a" r="1.8"></circle><path d="M3 21h18" stroke="#d4af37" strokeLinecap="round" strokeWidth="1.4"></path></svg><span className="truncate">Game Shows</span></span></a></nav>
-      </div>
-      <div className="h-px bg-white/[0.08]"></div>
-      <div>
-      <span className="text-xs font-bold tracking-wider uppercase text-slate-400 block mb-2.5 lg:mb-3">BY PROVIDER</span>
-      <div className="flex flex-row lg:flex-col gap-2 lg:gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scroll-smooth" style={{ scrollbarWidth: 'none' }}><a className="flex items-center justify-between px-3.5 py-2.5 lg:py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-[#d4af37] bg-[#10121a] lg:bg-transparent hover:bg-white/[0.04] border border-white/[0.08] lg:border-transparent hover:border-[#d4af37]/40 transition-all duration-200 cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="truncate">Evolution</span></a>
-      <a className="flex items-center justify-between px-3.5 py-2.5 lg:py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-[#d4af37] bg-[#10121a] lg:bg-transparent hover:bg-white/[0.04] border border-white/[0.08] lg:border-transparent hover:border-[#d4af37]/40 transition-all duration-200 cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="truncate">XPG Gaming</span></a>
-      <a className="flex items-center justify-between px-3.5 py-2.5 lg:py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-[#d4af37] bg-[#10121a] lg:bg-transparent hover:bg-white/[0.04] border border-white/[0.08] lg:border-transparent hover:border-[#d4af37]/40 transition-all duration-200 cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="truncate">Religa</span></a>
-      <a className="flex items-center justify-between px-3.5 py-2.5 lg:py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-[#d4af37] bg-[#10121a] lg:bg-transparent hover:bg-white/[0.04] border border-white/[0.08] lg:border-transparent hover:border-[#d4af37]/40 transition-all duration-200 cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="truncate">Vivo Gaming</span></a>
-      <a className="flex items-center justify-between px-3.5 py-2.5 lg:py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-[#d4af37] bg-[#10121a] lg:bg-transparent hover:bg-white/[0.04] border border-white/[0.08] lg:border-transparent hover:border-[#d4af37]/40 transition-all duration-200 cursor-pointer shrink-0 min-w-0 w-[calc(50%-0.25rem)] md:w-[calc(33.333%-0.5rem)] lg:w-full" href="#"><span className="truncate">Pragmatic Live</span></a></div>
-      </div>
-      </aside>
+      <GameFilters
+        title="Casino Live"
+        items={LIVE_FILTERS}
+        brands={brands}
+        activeKey={activeKey}
+        activeBrand={brand?.id ?? null}
+        onSelect={select}
+        onSelectBrand={selectBrand}
+      />
+    </aside>
 
 
       <section className="flex-1 min-w-0 w-full" data-purpose="live-tables-container">
@@ -89,15 +97,22 @@ export default function CasinoLive() {
 
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-5 xl:gap-3">
-        {casinoLiveGames.map((game) => (
-          <GameCard key={game.id} game={game} to={`/games/${game.id}`} />
-        ))}
-      </div>
+      <GamesGrid
+        className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-5 xl:gap-3"
+        games={games}
+        status={status}
+        error={error}
+        retry={retry}
+      />
 
-      <div className="mt-12 mb-6 flex flex-col items-center justify-center gap-3">
-      <p className="text-xs text-slate-500 mb-3">Showing <span className="text-white font-medium">12</span> of <span className="text-white font-medium">148</span> live tables</p><button className="mt-2 px-8 py-3 rounded-xl bg-[#121317] hover:bg-[#1c1e24] border border-white/10 text-white text-xs font-bold transition-all hover:border-[#E6A15C]/40 shadow-lg cursor-pointer inline-flex items-center justify-center gap-2.5"><i className="fa-solid fa-rotate-right text-[#d4af37] text-xs transition-transform duration-500 hover:rotate-180"></i><span className="">LOAD MORE GAMES</span></button>
-      </div>
+      <GamesFooter
+        shown={games.length}
+        total={Number(pagination?.total ?? games.length)}
+        hasMore={hasMore}
+        loadingMore={loadingMore}
+        onLoadMore={loadMore}
+        label="liveTables"
+      />
       </section>
 
       </div>
