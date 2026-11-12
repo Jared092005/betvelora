@@ -347,7 +347,7 @@ function GameScreen({ gameId }) {
           </section>
 
           <aside aria-label={tr('Panel de usuario', 'User panel')} className="lg:col-span-3 xl:col-span-3">
-            <div className="flex h-[40%] flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0E1017] p-6 shadow-xl">
+            <div className="flex flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0E1017] p-6 shadow-xl lg:h-[55%] xl:h-[50%] 2xl:h-[40%]">
               <div>
                 <div className="mb-6">
                   <span className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-slate-400">
