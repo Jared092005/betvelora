@@ -34,11 +34,14 @@ export default function GameCarousel({ games, label = 'juegos', onPlay }) {
     }
   }, [updateEdges])
 
-  const scrollByCard = (direction) => {
+  const scrollByCards = (direction) => {
     const track = trackRef.current
     if (!track) return
     const card = track.querySelector('.game-card-wrapper')
-    const step = card ? card.getBoundingClientRect().width + 16 : track.clientWidth * 0.8
+    const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 16
+    const cardWidth = card ? card.getBoundingClientRect().width : track.clientWidth / 5
+    // Avanza de dos en dos para que la navegación sea más fluida
+    const step = 2 * (cardWidth + gap)
     track.scrollBy({ left: direction * step, behavior: 'smooth' })
   }
 
@@ -60,7 +63,7 @@ export default function GameCarousel({ games, label = 'juegos', onPlay }) {
 
       <button
         type="button"
-        onClick={() => scrollByCard(-1)}
+        onClick={() => scrollByCards(-1)}
         aria-label={`Ver ${label} anteriores`}
         className={`${arrowClass} left-0 cursor-pointer md:hidden lg:inline lg:top-1/3 xl:top-1/2 ${
           canLeft ? 'opacity-100' : 'pointer-events-none opacity-0'
@@ -71,7 +74,7 @@ export default function GameCarousel({ games, label = 'juegos', onPlay }) {
 
       <button
         type="button"
-        onClick={() => scrollByCard(1)}
+        onClick={() => scrollByCards(1)}
         aria-label={`Ver más ${label}`}
         className={`${arrowClass} right-0  cursor-pointer md:hidden lg:inline lg:top-1/3 xl:top-1/2 ${
           canRight ? 'opacity-100' : 'pointer-events-none opacity-0'

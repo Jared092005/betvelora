@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getGame, listByProvider } from '../api/games'
-import GameCard from '../components/GameCard'
+import ProviderGamesCarousel from '../components/ProviderGamesCarousel'
 import { useLanguage } from '../i18n'
 
 /**
@@ -71,11 +71,11 @@ function GameScreen({ gameId }) {
     const controller = new AbortController()
     let active = true
 
-    listByProvider(game.providerId, { signal: controller.signal, perPage: 5 })
+    listByProvider(game.providerId, { signal: controller.signal, perPage: 31 })
       .then((result) => {
         if (!active) return
         const others = result.games.filter((item) => item.id !== game.id)
-        setRelatedGames((others.length ? others : result.games).slice(0, 4))
+        setRelatedGames((others.length ? others : result.games).slice(0, 30))
       })
       .catch((err) => {
         if (!active || err.name === 'AbortError') return
@@ -391,15 +391,17 @@ function GameScreen({ gameId }) {
               </h2>
             </div>
             {relatedGames.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">
-                {relatedGames.map((related) => (
-                  <GameCard key={related.id} game={related} to={`/games/${related.id}`} />
-                ))}
-              </div>
+              <ProviderGamesCarousel
+                games={relatedGames}
+                label={tr(`juegos de ${game.provider}`, `${game.provider} games`)}
+              />
             ) : (
-              <div className="grid grid-cols-2 gap-3.5 sm:gap-5 md:grid-cols-4">
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <div key={index} className="animate-pulse">
+              <div className="flex gap-3.5 overflow-hidden sm:gap-5 lg:gap-4">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-[45%] shrink-0 animate-pulse sm:w-[30%] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
+                  >
                     <div className="aspect-square w-full rounded-2xl border border-white/[0.08] bg-[#181a20]" />
                     <div className="space-y-2 px-1 pt-2">
                       <div className="h-3 w-3/4 rounded bg-white/10" />
