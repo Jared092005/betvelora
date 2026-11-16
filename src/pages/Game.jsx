@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getGame, listByProvider } from '../api/games'
-import ProviderGamesCarousel from '../components/ProviderGamesCarousel'
+import ProviderGamesCarousel from '../components/provider/ProviderGamesCarousel'
 import { useLanguage } from '../i18n'
 
 /**

@@ -1,5 +1,5 @@
-import useGameCount from '../hooks/useGameCount'
-import { useLanguage } from '../i18n'
+import useGameCount from '../../hooks/useGameCount'
+import { useLanguage } from '../../i18n'
 
 function GameCountView({ value, loading, variant, className, isEs }) {
   const display = loading ? '…' : value === null || value === undefined ? '…' : String(value)

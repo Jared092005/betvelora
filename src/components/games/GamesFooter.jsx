@@ -1,4 +1,4 @@
-import { useLanguage } from '../i18n'
+import { useLanguage } from '../../i18n'
 
 const LABELS = {
   games: { en: 'games', es: 'juegos' },

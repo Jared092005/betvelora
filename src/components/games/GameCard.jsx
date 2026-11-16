@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useLanguage } from '../i18n'
+import { useLanguage } from '../../i18n'
 
 /**
  * Card de juego — replica la estructura de la pantalla Casino de Stitch:

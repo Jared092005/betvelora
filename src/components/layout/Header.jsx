@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import LanguageSwitcher from './LanguageSwitcher'
-import logo from '../assets/logoBetVelora.png'
+import logo from '../../assets/logoBetVelora.png'
 
 // Navegación principal. `end` evita que "Home" quede activo en todas las rutas.
 const navItems = [

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/logoBetVelora.png'
+import logo from '../../assets/logoBetVelora.png'
 
 const casinoLinks = [
   { name: 'My Games', to: '/casino' },

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { listByType, listCategoryBrands } from '../api/games'
-import { useLanguage } from '../i18n'
+import { listByType, listCategoryBrands } from '../../api/games'
+import { useLanguage } from '../../i18n'
 
 const BRAND_BASE =
   'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all cursor-pointer shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full border'

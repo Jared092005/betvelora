@@ -1,5 +1,5 @@
 import GameCarousel from './GameCarousel'
-import { useLanguage } from '../i18n'
+import { useLanguage } from '../../i18n'
 
 function CarouselSkeleton() {
   return (

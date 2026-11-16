@@ -1,14 +1,25 @@
-export { default as Layout } from './Layout.jsx'
-export { default as AppBackground } from './AppBackground.jsx'
-export { default as Header } from './Header.jsx'
-export { default as Footer } from './Footer.jsx'
-export { default as PageShell } from './PageShell.jsx'
-export { default as GameCard } from './GameCard.jsx'
-export { default as GameCarousel } from './GameCarousel.jsx'
-export { default as GameGrid } from './GameGrid.jsx'
-export { default as Flag } from './Flag.jsx'
-export { default as LanguageSwitcher } from './LanguageSwitcher.jsx'
-export { default as ScrollToTop } from './ScrollToTop.jsx'
+// Layout
+export { Layout, AppBackground, Header, Footer, PageShell, Flag, LanguageSwitcher, ScrollToTop } from './layout'
+
+// Juegos
+export {
+  GameCard,
+  GameCarousel,
+  GameCount,
+  GameFilters,
+  GameGrid,
+  GamesCarousel,
+  GamesFooter,
+  GamesGrid,
+} from './games'
+
+// Proveedores
+export { ProviderFilter, ProviderGamesCarousel } from './provider'
+
+// Home
+export { HomePromos } from './home'
+
+// Cuenta
 export { default as AccountLayout } from './account/AccountLayout.jsx'
 export { default as AccountSection } from './account/AccountSection.jsx'
 export { default as AccountSidebar } from './account/AccountSidebar.jsx'

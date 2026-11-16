@@ -1,4 +1,4 @@
-import ProviderFilter from './ProviderFilter'
+import ProviderFilter from '../provider/ProviderFilter'
 
 const ITEM_BASE =
   'flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full border'

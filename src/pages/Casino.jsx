@@ -1,9 +1,9 @@
-import GameCount from '../components/GameCount'
+import GameCount from '../components/games/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
-import GameFilters from '../components/GameFilters'
+import GameFilters from '../components/games/GameFilters'
 import { useSearchParams } from 'react-router-dom'
-import GamesFooter from '../components/GamesFooter'
-import GamesGrid from '../components/GamesGrid'
+import GamesFooter from '../components/games/GamesFooter'
+import GamesGrid from '../components/games/GamesGrid'
 import { useCallback, useEffect, useRef } from 'react'
 
 /**

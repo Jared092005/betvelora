@@ -1,8 +1,8 @@
-import GameCount from '../components/GameCount'
+import GameCount from '../components/games/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
-import GameFilters from '../components/GameFilters'
-import GamesFooter from '../components/GamesFooter'
-import GamesGrid from '../components/GamesGrid'
+import GameFilters from '../components/games/GameFilters'
+import GamesFooter from '../components/games/GamesFooter'
+import GamesGrid from '../components/games/GamesGrid'
 /**
  * Casino Live — copiado desde Stitch (proyecto 10370446589462300119).
  * Generado automáticamente; el marcado es el original del diseño.

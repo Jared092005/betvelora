@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLanguage } from '../i18n'
+import { useLanguage } from '../../i18n'
 import Flag from './Flag'
 
 const OPTIONS = [

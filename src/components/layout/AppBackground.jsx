@@ -1,4 +1,4 @@
-import backgroundImage from '../assets/fondoBet-velora.webp'
+import backgroundImage from '../../assets/fondoBet-velora.webp'
 
 /**
  * Fondo global de la aplicación.

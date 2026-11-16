@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import GameCard from './GameCard'
+import GameCard from '../games/GameCard'
 
 const ARROW_CLASS =
   'absolute top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-slate-300 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:border-velora-gold/60 hover:bg-black/90 hover:text-white cursor-pointer lg:flex'

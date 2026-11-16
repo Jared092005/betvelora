@@ -1,5 +1,5 @@
 import GameCard from './GameCard'
-import { useLanguage } from '../i18n'
+import { useLanguage } from '../../i18n'
 
 function CardSkeleton() {
   return (
