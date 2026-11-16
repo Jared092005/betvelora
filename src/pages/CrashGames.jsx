@@ -1,3 +1,4 @@
+import GameCount from '../components/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/GameFilters'
 import GamesFooter from '../components/GamesFooter'
@@ -18,6 +19,7 @@ const CRASH_FILTERS = [
 export default function CrashGames() {
   const {
     games,
+    uniqueTotal,
     status,
     error,
     retry,
@@ -25,7 +27,6 @@ export default function CrashGames() {
     hasMore,
     loadingMore,
     loadMore,
-    brands,
     brand,
     select,
     selectBrand,
@@ -191,7 +192,7 @@ export default function CrashGames() {
       <GameFilters
         title="Crash Games"
         items={CRASH_FILTERS}
-        brands={brands}
+        category="crash"
         activeKey={activeKey}
         activeBrand={brand?.id ?? null}
         onSelect={select}
@@ -210,7 +211,7 @@ export default function CrashGames() {
       <h1 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">Crash Lobby</h1>
       </div>
 
-      <span className="bg-white/[0.06] border border-white/10 text-xs font-medium tracking-wide px-3 py-1 rounded-full inline-flex items-center gap-1"><span className="font-bold text-white">{pagination?.total ?? games.length}</span><span className="text-slate-400 font-normal">Games</span></span>
+      <GameCount count={uniqueTotal} loading={status === 'loading'} />
       </div>
 
       <div className="relative w-full md:w-80">

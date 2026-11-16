@@ -57,6 +57,40 @@ export async function listCategoryBrands(category, { signal } = {}) {
 }
 
 /**
+ * Cuenta juegos únicos de un filtro.
+ * La paginación del backend repite elementos entre páginas, así que recorre
+ * todas las páginas y deduplica por id antes de contar.
+ * `mode`: category | type | brand | new | best.
+ */
+export async function countUniqueGames({ mode = 'category', value }, { signal } = {}) {
+  const loadPage = (page) => {
+    const options = { page, perPage: 100, signal }
+    if (mode === 'type') return listByType(value, options)
+    if (mode === 'brand') return listByProvider(value, options)
+    if (mode === 'best') return listBest(options)
+    if (mode === 'new') return listNew(options)
+    return listByCategory(value, options)
+  }
+
+  const first = await loadPage(1)
+  const lastPage = Number(first.pagination?.last_page ?? 1)
+  const rest =
+    lastPage > 1
+      ? await Promise.all(
+          Array.from({ length: lastPage - 1 }, (_, index) =>
+            loadPage(index + 2).catch(() => ({ games: [] })),
+          ),
+        )
+      : []
+
+  const ids = new Set()
+  for (const page of [first, ...rest]) {
+    for (const game of page.games) ids.add(game.id)
+  }
+  return ids.size
+}
+
+/**
  * Busca juegos en todas las categorías a la vez (el endpoint acepta ?search=).
  * Devuelve una lista sin duplicados.
  */

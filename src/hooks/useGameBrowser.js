@@ -4,7 +4,6 @@ import {
   listByCategory,
   listByProvider,
   listByType,
-  listCategoryBrands,
   listNew,
 } from '../api/games'
 
@@ -33,12 +32,10 @@ export default function useGameBrowser({
   baseMode = 'category',
   baseValue,
   brandMode = 'server',
-  initialBrandId = null,
   initialVisible = INITIAL_VISIBLE,
 }) {
   const [filter, setFilter] = useState({ mode: baseMode, value: baseValue ?? category })
   const [brand, setBrand] = useState(null)
-  const [brands, setBrands] = useState([])
   const [catalog, setCatalog] = useState([])
   const [visibleCount, setVisibleCount] = useState(initialVisible)
   const [status, setStatus] = useState('loading')
@@ -106,42 +103,7 @@ export default function useGameBrowser({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, reloadKey, initialVisible])
 
-  // Proveedores: por categoría o derivados de los juegos (crash).
-  useEffect(() => {
-    let active = true
 
-    const request =
-      category === 'crash'
-        ? listByType('crash', { perPage: PAGE_SIZE }).then((result) => {
-            const map = new Map()
-            result.games.forEach((game) => {
-              if (game.providerId) {
-                map.set(String(game.providerId), { id: String(game.providerId), name: game.provider })
-              }
-            })
-            return [...map.values()]
-          })
-        : listCategoryBrands(category).then((list) =>
-            (list || []).map((item) => ({ id: String(item.Id), name: item.Name })),
-          )
-
-    request
-      .then((list) => {
-        if (!active) return
-        setBrands(list)
-        if (initialBrandId) {
-          const match = list.find((item) => item.id === String(initialBrandId))
-          if (match) setBrand((current) => current ?? match)
-        }
-      })
-      .catch(() => {
-        if (active) setBrands([])
-      })
-
-    return () => {
-      active = false
-    }
-  }, [category, initialBrandId])
 
   const allowedTypes = ALLOWED_TYPES[category]
   const filteredGames = useMemo(() => {
@@ -178,10 +140,10 @@ export default function useGameBrowser({
     error,
     retry,
     pagination: { total: filteredGames.length, page: 1, last_page: 1 },
+    uniqueTotal: filteredGames.length,
     hasMore,
     loadingMore: false,
     loadMore,
-    brands,
     filter,
     brand,
     select,

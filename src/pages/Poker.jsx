@@ -1,3 +1,4 @@
+import GameCount from '../components/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/GameFilters'
 import GamesFooter from '../components/GamesFooter'
@@ -13,6 +14,7 @@ const POKER_FILTERS = [
 export default function Poker() {
   const {
     games,
+    uniqueTotal,
     status,
     error,
     retry,
@@ -20,7 +22,6 @@ export default function Poker() {
     hasMore,
     loadingMore,
     loadMore,
-    brands,
     brand,
     select,
     selectBrand,
@@ -176,7 +177,7 @@ export default function Poker() {
       <GameFilters
         title="Poker"
         items={POKER_FILTERS}
-        brands={brands}
+        category="poker"
         activeKey={activeKey}
         activeBrand={brand?.id ?? null}
         onSelect={select}
@@ -187,7 +188,7 @@ export default function Poker() {
 
       <section className="flex-1 flex flex-col gap-6" data-purpose="poker-games-view">
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2"><div className="flex items-center gap-3.5"><div className="w-10 h-10 rounded-xl bg-white/[0.08] border border-white/10 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.25)]"><svg className="w-5 h-5 text-white fill-current" viewBox="0 0 24 24"><path d="M12 2.25c-.32 0-.62.14-.83.39C9.28 4.96 4.5 10.64 4.5 14.5c0 3.17 2.47 5.75 5.56 5.75.96 0 1.86-.25 2.66-.69-.17.84-.52 2.15-1.97 2.69-.32.12-.5.45-.44.78.06.33.35.57.69.57h3c.34 0 .63-.24.69-.57.06-.33-.12-.66-.44-.78-1.45-.54-1.8-1.85-1.97-2.69.8.44 1.7.69 2.66.69 3.09 0 5.56-2.58 5.56-5.75 0-3.86-4.78-9.54-6.67-11.86-.21-.25-.51-.39-.83-.39z"></path></svg></div><div className="flex items-center gap-2.5"><h1 className="font-serif text-2xl font-bold uppercase tracking-wider text-white">POKER</h1><span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-slate-400 tracking-wider">{pagination?.total ?? games.length} Games</span></div></div><div className="relative w-full sm:w-72 md:w-80" data-purpose="poker-search-container"><div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i className="fa-solid fa-magnifying-glass text-xs"></i></div><input className="w-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-500 transition-all outline-none" placeholder="Search poker game..." type="text" /></div></div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2"><div className="flex items-center gap-3.5"><div className="w-10 h-10 rounded-xl bg-white/[0.08] border border-white/10 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.25)]"><svg className="w-5 h-5 text-white fill-current" viewBox="0 0 24 24"><path d="M12 2.25c-.32 0-.62.14-.83.39C9.28 4.96 4.5 10.64 4.5 14.5c0 3.17 2.47 5.75 5.56 5.75.96 0 1.86-.25 2.66-.69-.17.84-.52 2.15-1.97 2.69-.32.12-.5.45-.44.78.06.33.35.57.69.57h3c.34 0 .63-.24.69-.57.06-.33-.12-.66-.44-.78-1.45-.54-1.8-1.85-1.97-2.69.8.44 1.7.69 2.66.69 3.09 0 5.56-2.58 5.56-5.75 0-3.86-4.78-9.54-6.67-11.86-.21-.25-.51-.39-.83-.39z"></path></svg></div><div className="flex items-center gap-2.5"><h1 className="font-serif text-2xl font-bold uppercase tracking-wider text-white">POKER</h1><GameCount count={uniqueTotal} loading={status === 'loading'} /></div></div><div className="relative w-full sm:w-72 md:w-80" data-purpose="poker-search-container"><div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i className="fa-solid fa-magnifying-glass text-xs"></i></div><input className="w-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-500 transition-all outline-none" placeholder="Search poker game..." type="text" /></div></div>
 
       <GamesGrid
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-5 xl:grid-cols-5 xl:gap-3"

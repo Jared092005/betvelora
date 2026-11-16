@@ -1,3 +1,4 @@
+import GameCount from '../components/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/GameFilters'
 import GamesFooter from '../components/GamesFooter'
@@ -13,6 +14,7 @@ const VIRTUAL_FILTERS = [
 export default function Virtual() {
   const {
     games,
+    uniqueTotal,
     status,
     error,
     retry,
@@ -20,7 +22,6 @@ export default function Virtual() {
     hasMore,
     loadingMore,
     loadMore,
-    brands,
     brand,
     select,
     selectBrand,
@@ -92,7 +93,7 @@ export default function Virtual() {
       <GameFilters
         title="Virtual"
         items={VIRTUAL_FILTERS}
-        brands={brands}
+        category="virtual"
         activeKey={activeKey}
         activeBrand={brand?.id ?? null}
         onSelect={select}
@@ -112,7 +113,7 @@ export default function Virtual() {
       <h1 className="font-serif font-bold text-2xl lg:text-3xl tracking-wider text-white uppercase drop-shadow">
               VIRTUAL
             </h1>
-      <span className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] font-semibold text-[#d4af37]">{pagination?.total ?? games.length} Games</span>
+      <GameCount count={uniqueTotal} loading={status === 'loading'} />
       </div>
       </div>
 

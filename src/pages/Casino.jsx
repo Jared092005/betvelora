@@ -1,3 +1,4 @@
+import GameCount from '../components/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/GameFilters'
 import { useSearchParams } from 'react-router-dom'
@@ -25,10 +26,12 @@ const CASINO_FILTERS = [
 export default function Casino() {
   const [searchParams] = useSearchParams()
   const initialType = searchParams.get('type')
+  const initialFilter = searchParams.get('filter')
   const initialBrand = searchParams.get('brand')
 
   const {
     games,
+    uniqueTotal,
     status,
     error,
     retry,
@@ -36,16 +39,22 @@ export default function Casino() {
     hasMore,
     loadingMore,
     loadMore,
-    brands,
     filter,
     brand,
     select,
     selectBrand,
   } = useGameBrowser({
     category: 'casino',
-    baseMode: initialType ? 'type' : 'category',
+    baseMode: initialBrand
+      ? 'category'
+      : initialType
+        ? 'type'
+        : initialFilter === 'best'
+          ? 'best'
+          : initialFilter === 'new'
+            ? 'new'
+            : 'category',
     baseValue: initialType ?? undefined,
-    initialBrandId: initialBrand,
   })
 
   const activeKey = brand
@@ -220,7 +229,8 @@ export default function Casino() {
       <GameFilters
         title="Casino"
         items={CASINO_FILTERS}
-        brands={brands}
+        category="casino"
+        initialBrandId={initialBrand}
         activeKey={activeKey}
         activeBrand={brand?.id ?? null}
         onSelect={select}
@@ -239,7 +249,7 @@ export default function Casino() {
       <h1 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">{activeLabel}</h1>
       </div>
 
-      <span className="bg-white/[0.06] border border-white/10 text-xs font-medium tracking-wide px-3 py-1 rounded-full inline-flex items-center gap-1"><span className="font-bold text-white">{pagination?.total ?? games.length}</span><span className="text-slate-400 font-normal">Games</span></span>
+      <GameCount count={uniqueTotal} loading={status === 'loading'} />
       </div>
 
       <div className="relative w-full md:w-80">

@@ -1,3 +1,4 @@
+import GameCount from '../components/GameCount'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/GameFilters'
 import GamesFooter from '../components/GamesFooter'
@@ -13,6 +14,7 @@ const LIVE_FILTERS = [
 export default function CasinoLive() {
   const {
     games,
+    uniqueTotal,
     status,
     error,
     retry,
@@ -20,7 +22,6 @@ export default function CasinoLive() {
     hasMore,
     loadingMore,
     loadMore,
-    brands,
     brand,
     select,
     selectBrand,
@@ -67,7 +68,7 @@ export default function CasinoLive() {
       <GameFilters
         title="Casino Live"
         items={LIVE_FILTERS}
-        brands={brands}
+        category="casino_live"
         activeKey={activeKey}
         activeBrand={brand?.id ?? null}
         onSelect={select}
@@ -83,10 +84,10 @@ export default function CasinoLive() {
 
       <div className="flex items-center gap-3">
       <div className="w-8 h-8 rounded-lg bg-[#d4af37]/10 border border-[#d4af37]/30 flex items-center justify-center text-white"><i className="fa-solid fa-video text-sm text-white" style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.75))' }}></i></div>
-      <h2 className="font-serif text-2xl font-bold tracking-wider uppercase text-white flex items-center gap-2">
+      <h2 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">
                       CASINO LIVE
-                
       </h2>
+      <GameCount count={uniqueTotal} loading={status === 'loading'} />
       </div>
 
       <div className="relative w-full md:w-80">
