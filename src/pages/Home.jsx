@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { listBrands, listByCategory, listByType, listNew, searchGames } from '../api/games'
+import { listByCategory, listByType, listNew, searchGames } from '../api/games'
 import GamesCarousel from '../components/games/GamesCarousel'
 import HomePromos from '../components/home/HomePromos'
 import GamesGrid from '../components/games/GamesGrid'
