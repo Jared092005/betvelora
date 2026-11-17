@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getGame, listByProvider } from '../api/games'
 import ProviderGamesCarousel from '../components/provider/ProviderGamesCarousel'
-import Skeleton from '../components/skeleton/Skeleton'
 import CardSkeleton from '../components/skeleton/CardSkeleton'
+import Spinner from '../components/spinners/Spinner'
 import { useLanguage } from '../i18n'
 
 /**
@@ -30,12 +30,14 @@ function GameScreen({ gameId }) {
   const [error, setError] = useState(null)
   const [reloadKey, setReloadKey] = useState(0)
   const [relatedGames, setRelatedGames] = useState([])
+  const [imageLoaded, setImageLoaded] = useState(false)
   const viewportRef = useRef(null)
 
   const isEs = language === 'es'
   const tr = (es, en) => (isEs ? es : en)
 
   const heroImage = game?.image ?? null
+  const showLoadingOverlay = status === 'loading' || (Boolean(heroImage) && !imageLoaded)
 
   // ── Juego y "More from <proveedor>" desde la API ────────────
   useEffect(() => {
@@ -179,7 +181,7 @@ function GameScreen({ gameId }) {
             </button>
             <div className="hidden xl:block">
               <h1 className="flex items-center gap-2 text-base font-bold leading-tight tracking-wide text-white sm:text-lg">
-                {game?.name ?? ''}
+                {game?.name ?? tr('Cargando juego', 'Loading game')}
               </h1>
               <p className="text-xs font-medium text-slate-400 sm:text-sm">{game?.provider ?? ''}</p>
             </div>
@@ -310,14 +312,37 @@ function GameScreen({ gameId }) {
                     {tr('Reintentar', 'Retry')}
                   </button>
                 </div>
-              ) : heroImage ? (
-                <img
-                  src={heroImage}
-                  alt={`${game?.name ?? ''} — ${game?.provider ?? ''}`}
-                  className={`h-full w-full ${expanded ? 'object-contain' : 'object-cover'}`}
-                />
               ) : (
-                <Skeleton className="h-full w-full rounded-none bg-[#181a20]" />
+                <>
+                  {heroImage && (
+                    <img
+                      src={heroImage}
+                      alt={`${game?.name ?? ''} — ${game?.provider ?? ''}`}
+                      onLoad={() => setImageLoaded(true)}
+                      onError={() => setImageLoaded(true)}
+                      className={`h-full w-full ${expanded ? 'object-contain' : 'object-cover'}`}
+                    />
+                  )}
+
+                  <div
+                    className={`absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 bg-[#0A0C13] px-6 text-center transition-opacity duration-500 ${
+                      showLoadingOverlay ? 'opacity-100' : 'pointer-events-none opacity-0'
+                    }`}
+                    aria-live="polite"
+                  >
+                    <Spinner size="xl" />
+                    <div className="space-y-1">
+                      <p className="text-sm font-semibold uppercase tracking-wider text-white">
+                        {status === 'loading'
+                          ? tr('Cargando juego', 'Loading game')
+                          : (game?.name ?? '')}
+                      </p>
+                      {status === 'ready' && game?.provider && (
+                        <p className="text-xs text-slate-400">{game.provider}</p>
+                      )}
+                    </div>
+                  </div>
+                </>
               )}
 
               {isExpanded && (
@@ -325,7 +350,7 @@ function GameScreen({ gameId }) {
                   type="button"
                   onClick={() => setIsExpanded(false)}
                   aria-label={tr('Salir de pantalla completa', 'Exit fullscreen')}
-                  className="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
+                   className="absolute right-4 top-4 z-20 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm transition-luxury hover:border-velora-gold/60 hover:text-velora-gold"
                 >
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -341,10 +366,12 @@ function GameScreen({ gameId }) {
 
             {/* En mobile/tablet el nombre va debajo del visor (en desktop está en la barra) */}
             {game && (
-              <div className="mt-4 lg:hidden">
-                <h2 className="text-base font-bold tracking-wide text-white sm:text-lg">{game.name}</h2>
-                <p className="text-xs font-medium text-slate-400 sm:text-sm">{game.provider}</p>
-              </div>
+               <div className="mt-4 xl:hidden">
+              <h2 className="text-base font-bold tracking-wide text-white sm:text-lg">
+                {game?.name ?? tr('Cargando juego', 'Loading game')}
+              </h2>
+              <p className="text-xs font-medium text-slate-400 sm:text-sm">{game?.provider ?? ''}</p>
+            </div>
             )}
           </section>
 
