@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import { listBrands, listByCategory, listByType, listNew, searchGames } from '../api/games'
 import GamesCarousel from '../components/games/GamesCarousel'
 import HomePromos from '../components/home/HomePromos'
-import GameCount from '../components/games/GameCount'
 import GamesGrid from '../components/games/GamesGrid'
 import useGames from '../hooks/useGames'
 import { useLanguage } from '../i18n'
+import Header from '../components/layout/Header'
 
 /**
  * Home — copiado desde Stitch (proyecto 10370446589462300119).
@@ -68,26 +68,11 @@ export default function Home() {
   return (
     <div className="text-slate-200 font-sans antialiased selection:bg-velora-red selection:text-white min-h-screen flex flex-col" style={{ backgroundColor: '#000000' }}>
 
-
-
-
-
       <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex-col justify-start p-6 transition-all duration-300 lg:hidden flex" id="mobile-nav-drawer" style={{ display: 'none' }}>
       <div className="flex items-center justify-between pb-6 border-b border-velora-borderSubtle">
-      <img alt="Velora Casino" className="h-7 w-auto" src="/screens/home/bcee34ed446e.jpg" />
       <button aria-label="Close Menu" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg></button>
       </div>
-      <nav className="flex flex-col py-6 space-y-2">
-      <Link to="/" className="px-4 py-3 rounded-xl bg-velora-gold/15 text-velora-gold font-bold text-sm tracking-widest uppercase border border-velora-gold/30 transition-all">Home</Link>
-      <Link to="/casino" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino</Link>
-      <Link to="/casino-live" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Casino Live</Link>
-      <Link to="/poker" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Poker</Link>
-      <Link to="/virtual" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Virtual</Link>
-      <Link to="/promotions" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Promotions</Link>
-
-      <Link to="/account" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Profile</Link>
-      <Link to="/account/messages" className="px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 font-semibold text-sm tracking-widest uppercase transition-all">Messages</Link>
-      </nav>
+      <Header/>
       </div>
 
       {!isSearching && <HomePromos />}
@@ -109,11 +94,11 @@ export default function Home() {
       <i className="fa-solid fa-fire text-velora-red w-4 text-center"></i>
       <span className="">Popular Picks</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="best" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span>
+      
       </Link>
       </li>
       <li className="shrink-0">
-      <Link to="/casino?type=slot" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0"><div className="flex items-center gap-3"><i className="fa-solid fa-dice-d6 text-velora-gold w-4 text-center"></i><span className="">Slots</span></div><span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="type" value="slot" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span></Link>
+      <Link to="/casino?type=slot" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0"><div className="flex items-center gap-3"><i className="fa-solid fa-dice-d6 text-velora-gold w-4 text-center"></i><span className="">Slots</span></div></Link>
       </li>
       <li className="shrink-0">
       <Link to="/casino-live" className="flex min-w-[180px] items-center justify-between px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-all text-xs font-semibold group lg:min-w-0">
@@ -121,7 +106,7 @@ export default function Home() {
       <i className="fa-solid fa-video text-emerald-400 w-4 text-center"></i>
       <span className="">Casino Live</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="category" value="casino_live" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span>
+      
       </Link>
       </li>
       <li className="shrink-0">
@@ -130,7 +115,7 @@ export default function Home() {
       <i className="fa-solid fa-chart-line text-blue-400 w-4 text-center"></i>
       <span className="">Crash Games</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="type" value="crash" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span>
+      
       </Link>
       </li>
       <li className="shrink-0">
@@ -139,7 +124,7 @@ export default function Home() {
       <svg className="w-4 h-4 text-purple-400 flex-shrink-0" fill="currentColor" stroke="none" viewBox="0 0 24 24"><path d="M12 2C9.5 5.5 6 8.5 6 12c0 2.8 2.2 4.5 4.5 4.5.8 0 1.5-.2 2-.6.1.5-.2 1.6-1.5 2.6H8v1.5h8V18.5h-3c-1.3-1-1.6-2.1-1.5-2.6.5.4 1.2.6 2 .6 2.3 0 4.5-1.7 4.5-4.5 0-3.5-3.5-6.5-6-10z"></path></svg>
       <span className="">Poker Rooms</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="category" value="poker" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span>
+      
       </Link>
       </li>
       <li className="shrink-0">
@@ -148,7 +133,7 @@ export default function Home() {
       <i className="fa-solid fa-ticket text-amber-400 w-4 text-center"></i>
       <span className="">Scratch &amp; Lotteries</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="type" value="scratch" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span>
+      
       </Link>
       </li>
       <li className="shrink-0">
@@ -157,7 +142,7 @@ export default function Home() {
       <i className="fa-solid fa-trophy text-slate-400 w-4 text-center"></i>
       <span className="">Virtual Sports</span>
       </div>
-      <span className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300"><GameCount mode="category" value="virtual" variant="plain" className="text-[10px] font-bold text-slate-500 group-hover:text-slate-300" /></span>
+      
       </Link>
       </li>
       </ul>
@@ -327,19 +312,8 @@ export default function Home() {
       </>
       )}
 
+       </div>
       </div>
-
-      </div>
-
-
-
-
-
-
-
-
-
-
     </div>
   )
 }

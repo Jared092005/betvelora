@@ -1,8 +1,7 @@
-import GameCount from '../components/games/GameCount'
+import InfiniteScrollSentinel from '../components/games/InfiniteScrollSentinel'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/games/GameFilters'
 import { useSearchParams } from 'react-router-dom'
-import GamesFooter from '../components/games/GamesFooter'
 import GamesGrid from '../components/games/GamesGrid'
 import { useCallback, useEffect, useRef } from 'react'
 
@@ -31,13 +30,10 @@ export default function Casino() {
 
   const {
     games,
-    uniqueTotal,
     status,
     error,
     retry,
-    pagination,
     hasMore,
-    loadingMore,
     loadMore,
     filter,
     brand,
@@ -249,7 +245,7 @@ export default function Casino() {
       <h1 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">{activeLabel}</h1>
       </div>
 
-      <GameCount count={uniqueTotal} loading={status === 'loading'} />
+      
       </div>
 
       <div className="relative w-full md:w-80">
@@ -268,16 +264,7 @@ export default function Casino() {
         error={error}
         retry={retry}
       />
-
-
-      <GamesFooter
-        shown={games.length}
-        total={Number(pagination?.total ?? games.length)}
-        hasMore={hasMore}
-        loadingMore={loadingMore}
-        onLoadMore={loadMore}
-        label="games"
-      />
+      <InfiniteScrollSentinel key={games.length} hasMore={hasMore} onLoad={loadMore} />
       </div>
 
       </div>

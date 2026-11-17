@@ -5,11 +5,9 @@ export { Layout, AppBackground, Header, Footer, PageShell, Flag, LanguageSwitche
 export {
   GameCard,
   GameCarousel,
-  GameCount,
   GameFilters,
   GameGrid,
   GamesCarousel,
-  GamesFooter,
   GamesGrid,
 } from './games'
 

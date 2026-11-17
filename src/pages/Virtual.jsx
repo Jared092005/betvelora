@@ -1,7 +1,6 @@
-import GameCount from '../components/games/GameCount'
+import InfiniteScrollSentinel from '../components/games/InfiniteScrollSentinel'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/games/GameFilters'
-import GamesFooter from '../components/games/GamesFooter'
 import GamesGrid from '../components/games/GamesGrid'
 /**
  * Virtual — copiado desde Stitch (proyecto 10370446589462300119).
@@ -14,13 +13,10 @@ const VIRTUAL_FILTERS = [
 export default function Virtual() {
   const {
     games,
-    uniqueTotal,
     status,
     error,
     retry,
-    pagination,
     hasMore,
-    loadingMore,
     loadMore,
     brand,
     select,
@@ -113,7 +109,7 @@ export default function Virtual() {
       <h1 className="font-serif font-bold text-2xl lg:text-3xl tracking-wider text-white uppercase drop-shadow">
               VIRTUAL
             </h1>
-      <GameCount count={uniqueTotal} loading={status === 'loading'} />
+      
       </div>
       </div>
 
@@ -131,15 +127,7 @@ export default function Virtual() {
         error={error}
         retry={retry}
       />
-
-      <GamesFooter
-        shown={games.length}
-        total={Number(pagination?.total ?? games.length)}
-        hasMore={hasMore}
-        loadingMore={loadingMore}
-        onLoadMore={loadMore}
-        label="virtualGames"
-      />
+      <InfiniteScrollSentinel key={games.length} hasMore={hasMore} onLoad={loadMore} />
       </section>
       </div>
 

@@ -1,7 +1,6 @@
-import GameCount from '../components/games/GameCount'
+import InfiniteScrollSentinel from '../components/games/InfiniteScrollSentinel'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/games/GameFilters'
-import GamesFooter from '../components/games/GamesFooter'
 import GamesGrid from '../components/games/GamesGrid'
 /**
  * Casino Live — copiado desde Stitch (proyecto 10370446589462300119).
@@ -14,13 +13,10 @@ const LIVE_FILTERS = [
 export default function CasinoLive() {
   const {
     games,
-    uniqueTotal,
     status,
     error,
     retry,
-    pagination,
     hasMore,
-    loadingMore,
     loadMore,
     brand,
     select,
@@ -38,7 +34,6 @@ export default function CasinoLive() {
 
       <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex-col justify-start p-6 transition-all duration-300 lg:hidden hidden" id="mobile-nav-drawer" style={{ display: 'none' }}>
       <div className="flex items-center justify-between pb-6 border-b border-velora-borderSubtle">
-      <img alt="Velora Casino" className="h-7 w-auto" src="/screens/casino-live/bcee34ed446e.jpg" />
       <button aria-label="Close Menu" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg></button>
       </div>
       </div>
@@ -87,7 +82,7 @@ export default function CasinoLive() {
       <h2 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">
                       CASINO LIVE
       </h2>
-      <GameCount count={uniqueTotal} loading={status === 'loading'} />
+      
       </div>
 
       <div className="relative w-full md:w-80">
@@ -105,15 +100,7 @@ export default function CasinoLive() {
         error={error}
         retry={retry}
       />
-
-      <GamesFooter
-        shown={games.length}
-        total={Number(pagination?.total ?? games.length)}
-        hasMore={hasMore}
-        loadingMore={loadingMore}
-        onLoadMore={loadMore}
-        label="liveTables"
-      />
+      <InfiniteScrollSentinel key={games.length} hasMore={hasMore} onLoad={loadMore} />
       </section>
 
       </div>
