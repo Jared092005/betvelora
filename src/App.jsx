@@ -11,6 +11,7 @@ import {
   Promotions,
   Login,
   Register,
+  ForgotPassword,
   Game,
   NotFound,
 } from './pages'
@@ -44,9 +45,15 @@ function App() {
         <Route path="/virtual" element={<Virtual />} />
         <Route path="/promotions" element={<Promotions />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/games" element={<Navigate to="/games/aztec-empire" replace />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+
+        {/* Compatibilidad con las rutas antiguas */}
+        <Route path="/login" element={<Navigate to="/auth/login" replace />} />
+        <Route path="/register" element={<Navigate to="/auth/register" replace />} />
+
+        <Route path="/games" element={<Navigate to="/casino" replace />} />
         <Route path="/games/:gameId" element={<Game />} />
 
         {/* Área de cuenta */}

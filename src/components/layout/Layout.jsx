@@ -9,25 +9,28 @@ import AppBackground from './AppBackground'
  * Envuelve todas las rutas: el Header y el Footer viven aquí una sola vez
  * y cada página se renderiza dentro de <Outlet />, debajo del header.
  *
- * La ficha de juego (/games/...) es la excepción: usa su propia barra
- * superior (volver, favorito, depositar…) y se muestra a pantalla completa,
+ * La ficha de juego (/games/...) y las pantallas de acceso (/auth/...)
+ * son la excepción: usan su propia composición a pantalla completa,
  * sin el header ni el footer del sitio.
  */
 export default function Layout() {
   const { pathname } = useLocation()
   const isGameScreen = pathname === '/games' || pathname.startsWith('/games/')
+  const isAuthScreen =
+    pathname.startsWith('/auth') || pathname === '/login' || pathname === '/register'
+  const hideChrome = isGameScreen || isAuthScreen
 
   return (
     <div className="app-shell flex min-h-screen flex-col text-slate-200">
       <AppBackground />
       <ScrollToTop />
-      {!isGameScreen && <Header />}
+      {!hideChrome && <Header />}
 
       <main className="flex-1">
         <Outlet />
       </main>
 
-      {!isGameScreen && <Footer />}
+      {!hideChrome && <Footer />}
     </div>
   )
 }

@@ -51,6 +51,15 @@ export const translations = {
   'Forgot?': '¿La olvidaste?',
   'Already have an account?': '¿Ya tienes una cuenta?',
   "Don't have an account?": '¿No tienes una cuenta?',
+  'Reset your password': 'Restablece tu contraseña',
+  'Email address': 'Correo electrónico',
+  'Send reset link': 'Enviar enlace de restablecimiento',
+  'Remembered your password?': '¿Recordaste tu contraseña?',
+  'Back to Login': 'Volver al inicio de sesión',
+  "Enter your email address and we'll send you a link to reset your password.":
+    'Introduce tu correo y te enviaremos un enlace para restablecer tu contraseña.',
+  "If the email exists, we've sent you a link to reset your password.":
+    'Si el correo existe, te hemos enviado un enlace para restablecer tu contraseña.',
 
   // ── Secciones y catálogo ─────────────────────────────────
   'TOP WINNERS OF THE MONTH': 'GANADORES DEL MES',

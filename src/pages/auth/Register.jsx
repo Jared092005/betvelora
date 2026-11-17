@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom'
+import logo from '../../assets/logoBetVelora.png'
+
 /**
  * Register — copiado desde Stitch (proyecto 10370446589462300119).
  * Generado automáticamente; el marcado es el original del diseño.
  */
 export default function Register() {
   return (
-    <div className="h-full text-slate-200 font-sans bg-black antialiased selection:bg-[#e60026] selection:text-white flex flex-col justify-between relative overflow-x-hidden">
+    <div className="relative flex min-h-screen flex-col justify-center overflow-x-hidden bg-black font-sans text-slate-200 antialiased selection:bg-[#e60026] selection:text-white">
 
 
 
@@ -26,7 +29,7 @@ export default function Register() {
       <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 py-6 sm:py-10">
 
       <div className="mb-5 flex flex-col items-center" data-purpose="brand-logo-container">
-      <img alt="Velora Casino" className="h-10 sm:h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" src="/screens/register/92d01d896f3c.jpg" />
+      <img alt="Velora Casino" className="h-10 sm:h-12 w-auto object-contain hover:scale-105 transition-transform duration-300" src={logo} />
       </div>
 
       <section className="auth-card w-full max-w-[470px] bg-[#0e0f13] border border-white/10 rounded-[28px] p-6 sm:p-8 relative backdrop-blur-md">
@@ -34,11 +37,11 @@ export default function Register() {
 
       <div className="w-full bg-[#07080a] p-1.5 rounded-full border border-white/10 flex items-center justify-between mb-7" data-purpose="auth-tabs">
 
-      <a className="w-1/2 py-2.5 text-center text-sm font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200" href="#">
+      <Link to="/auth/login" className="w-1/2 py-2.5 text-center text-sm font-semibold text-slate-400 hover:text-white rounded-full transition-all duration-200">
                 Login
-              </a>
+              </Link>
 
-      <a className="w-1/2 py-2.5 text-center text-sm font-bold text-[#d4af37] rounded-full border-2 border-[#d4af37] bg-[#d4af37]/10 shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all duration-200" href="#">Register</a>
+      <Link to="/auth/register" className="w-1/2 py-2.5 text-center text-sm font-bold text-[#d4af37] rounded-full border-2 border-[#d4af37] bg-[#d4af37]/10 shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all duration-200">Register</Link>
       </div>
 
 
@@ -119,9 +122,9 @@ export default function Register() {
       <div className="mt-6 text-center">
       <p className="text-xs text-slate-400">
                 Already have an account? 
-                <a className="font-bold text-[#d4af37] hover:text-[#f3e5ab] transition-colors hover:underline ml-1" href="#">
+                <Link to="/auth/login" className="font-bold text-[#d4af37] hover:text-[#f3e5ab] transition-colors hover:underline ml-1">
                   Login
-                </a>
+                </Link>
       </p>
       </div>
 
