@@ -6,7 +6,6 @@ import HomePromos from '../components/home/HomePromos'
 import GamesGrid from '../components/games/GamesGrid'
 import useGames from '../hooks/useGames'
 import { useLanguage } from '../i18n'
-import Header from '../components/layout/Header'
 import HomeAside from '../components/home/HomeAside'
 
 /**
@@ -54,7 +53,6 @@ export default function Home() {
       <div className="flex items-center justify-between pb-6 border-b border-velora-borderSubtle">
       <button aria-label="Close Menu" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path></svg></button>
       </div>
-      <Header/>
       </div>
 
       {!isSearching && <HomePromos />}
@@ -62,8 +60,7 @@ export default function Home() {
 
       <div className="max-w-[1920px] mx-auto px-4 lg:px-8 py-8 flex-1 flex flex-col lg:flex-row gap-8 w-full">
 
-      {!isSearching && (<HomeAside/>
-      )}
+      {!isSearching && <HomeAside />}
 
 
       <div className="flex-1 flex flex-col gap-10 min-w-0" data-purpose="games-catalog">
@@ -169,7 +166,6 @@ export default function Home() {
       <h2 className="font-cinzel text-xl font-bold uppercase tracking-wider text-white">Casino Live</h2>
       <div className="hidden items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-velora-red/10 border border-velora-red/30 text-[10px] text-velora-red font-bold lg:flex">
       <span className="w-2 h-2 rounded-full bg-velora-red animate-pulse"></span>
-      <span className="">128 DEALERS ACTIVE</span>
       </div>
       </div>
       <Link to="/casino-live" className="shrink-0 whitespace-nowrap px-2.5 py-1 rounded-full sm:px-3.5 sm:py-1.5 bg-velora-red/15 border border-velora-red/30 hover:bg-velora-red text-velora-red hover:text-white text-[10px] font-bold uppercase sm:text-xs tracking-wider transition-all flex items-center gap-1.5"><span className="">View all</span><i className="fa-solid fa-chevron-right text-[9px] sm:text-[10px]"></i></Link></div>
