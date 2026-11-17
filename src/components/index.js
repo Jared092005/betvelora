@@ -9,6 +9,7 @@ export {
   GameGrid,
   GamesCarousel,
   GamesGrid,
+  TopWinnersOfTheMonth,
 } from './games'
 
 // Proveedores

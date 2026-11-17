@@ -1,3 +1,5 @@
+import { virtualWinners } from '../data/topWinners'
+import TopWinnersOfTheMonth from '../components/games/TopWinnersOfTheMonth'
 import InfiniteScrollSentinel from '../components/games/InfiniteScrollSentinel'
 import useGameBrowser from '../hooks/useGameBrowser'
 import GameFilters from '../components/games/GameFilters'
@@ -39,48 +41,7 @@ export default function Virtual() {
       </div>
       </div>
 
-      <section className="w-full max-w-[1920px] mx-auto px-4 lg:px-8 pt-6 pb-2" data-purpose="top-winners-section">
-      <div className="bg-gradient-to-b from-[#181a20] via-[#121317] to-[#10121a] rounded-2xl border border-[#d4af37]/30 p-5 lg:p-7 shadow-[0_10px_30px_rgba(0,0,0,0.85)] relative overflow-hidden">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-white/[0.08] pb-5">
-      <div className="flex items-center gap-3.5">
-      <div>
-      <div className="flex items-center gap-2">
-      <h2 className="font-serif text-2xl font-bold tracking-wider uppercase text-white">TOP WINNERS OF THE MONTH</h2>
-      </div>
-      </div>
-      </div>
-      <div className="hidden items-center gap-2 self-end md:self-auto lg:flex">
-      <div className="flex items-center gap-2">
-      <button aria-label="Previous winners" className="w-9 h-9 rounded-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 flex items-center justify-center text-slate-300 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 cursor-pointer shadow-[0_0_12px_rgba(212,175,55,0.15)] group"><i className="fa-solid fa-chevron-left text-xs"></i></button>
-      <button aria-label="Next winners" className="w-9 h-9 rounded-full bg-[#121317] border border-white/10 hover:border-[#d4af37]/40 flex items-center justify-center text-slate-300 hover:text-[#d4af37] hover:bg-white/5 transition-all duration-200 cursor-pointer shadow-[0_0_12px_rgba(212,175,55,0.15)] group"><i className="fa-solid fa-chevron-right text-xs"></i></button>
-      </div>
-      </div>
-      </div>
-
-      <div className="flex gap-4 lg:gap-5 overflow-x-auto pb-2 scroll-smooth no-scrollbar" id="winners-carousel-track" style={{ scrollbarWidth: 'none', MsOverflowStyle: 'none' }}>
-
-      <div className="min-w-[280px] sm:min-w-[300px] flex-1 rounded-2xl bg-[#0d0e12] border border-white/[0.08] hover:border-white/20 p-3 flex items-center gap-3.5 transition-all duration-300 hover:shadow-lg group cursor-pointer">
-      <div className="w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-black/50 border border-white/[0.06]"><img alt="Virtual Champions" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="/screens/virtual/3b786c5ea956.jpg" /></div>
-      <div className="flex flex-col justify-center min-w-0 flex-1"><div className="text-xs font-semibold tracking-wide flex items-center gap-1.5 text-slate-400"><span className="">ID 15****84</span></div><div className="text-base lg:text-lg font-extrabold text-[#d4af37] tracking-tight leading-tight mt-0.5 truncate">18,710 €</div><div className="text-[11px] text-slate-300 font-normal mt-0.5 tracking-tight">06 oct., 2026 07:04</div></div>
-      </div>
-
-      <div className="min-w-[280px] sm:min-w-[300px] flex-1 rounded-2xl bg-[#0d0e12] border border-white/[0.08] hover:border-white/20 p-3 flex items-center gap-3.5 transition-all duration-300 hover:shadow-lg group cursor-pointer">
-      <div className="w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-black/50 border border-white/[0.06]"><img alt="Virtual Cup" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="/screens/virtual/56c6071fc56a.jpg" /></div>
-      <div className="flex flex-col justify-center min-w-0 flex-1"><div className="text-xs font-semibold tracking-wide flex items-center gap-1.5 text-slate-400"><span className="">ID 28****19</span></div><div className="text-base lg:text-lg font-extrabold text-[#d4af37] tracking-tight leading-tight mt-0.5 truncate">10,780 €</div><div className="text-[11px] text-slate-300 font-normal mt-0.5 tracking-tight">05 oct., 2026 19:42</div></div>
-      </div>
-
-      <div className="min-w-[280px] sm:min-w-[300px] flex-1 rounded-2xl bg-[#0d0e12] border border-white/[0.08] hover:border-white/20 p-3 flex items-center gap-3.5 transition-all duration-300 hover:shadow-lg group cursor-pointer">
-      <div className="w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-black/50 border border-white/[0.06]"><img alt="Virtual Europa" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="/screens/virtual/cab43dce9c48.jpg" /></div>
-      <div className="flex flex-col justify-center min-w-0 flex-1"><div className="text-xs font-semibold tracking-wide flex items-center gap-1.5 text-slate-400"><span className="">ID 44****91</span></div><div className="text-base lg:text-lg font-extrabold text-[#d4af37] tracking-tight leading-tight mt-0.5 truncate">7,835 €</div><div className="text-[11px] text-slate-300 font-normal mt-0.5 tracking-tight">04 oct., 2026 23:18</div></div>
-      </div>
-
-      <div className="min-w-[280px] sm:min-w-[300px] flex-1 rounded-2xl bg-[#0d0e12] border border-white/[0.08] hover:border-white/20 p-3 flex items-center gap-3.5 transition-all duration-300 hover:shadow-lg group cursor-pointer">
-      <div className="w-20 h-16 shrink-0 rounded-xl overflow-hidden bg-black/50 border border-white/[0.06]"><img alt="Virtual Euros" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="/screens/virtual/869274c43ff9.jpg" /></div>
-      <div className="flex flex-col justify-center min-w-0 flex-1"><div className="text-xs font-semibold tracking-wide flex items-center gap-1.5 text-slate-400"><span className="">ID 73****55</span></div><div className="text-base lg:text-lg font-extrabold text-[#d4af37] tracking-tight leading-tight mt-0.5 truncate">6,315 €</div><div className="text-[11px] text-slate-300 font-normal mt-0.5 tracking-tight">04 oct., 2026 15:30</div></div>
-      </div>
-      </div>
-      </div>
-      </section>
+      <TopWinnersOfTheMonth winners={virtualWinners} games={games} />
 
 
       <div className="w-full max-w-[1920px] mx-auto px-4 lg:px-8 py-6 flex flex-col lg:flex-row gap-8 flex-1" data-purpose="virtual-lobby-main">
