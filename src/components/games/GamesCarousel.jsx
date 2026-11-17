@@ -1,21 +1,6 @@
 import GameCarousel from './GameCarousel'
+import CarouselSkeleton from '../skeleton/CarouselSkeleton'
 import { useLanguage } from '../../i18n'
-
-function CarouselSkeleton() {
-  return (
-    <div className="flex gap-4 overflow-hidden">
-      {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} className="w-[46%] shrink-0 animate-pulse sm:w-[31%] lg:w-[23%] xl:w-[19%]">
-          <div className="aspect-square w-full rounded-2xl border border-white/[0.08] bg-[#181a20]" />
-          <div className="space-y-2 px-1 pt-2">
-            <div className="h-3 w-3/4 rounded bg-white/10" />
-            <div className="h-2.5 w-1/3 rounded bg-white/5" />
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
 
 /** Carrusel de /home con estados de carga, error y vacío. */
 export default function GamesCarousel({ games = [], status = 'ready', error, retry, label }) {

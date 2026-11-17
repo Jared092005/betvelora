@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import GameCard from './GameCard'
+import CardSkeleton from '../skeleton/CardSkeleton'
 
 /**
  * Endpoint por defecto.
@@ -122,13 +123,7 @@ export default function GameGrid({
       {status === 'loading' && (
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: limit ?? 8 }).map((_, index) => (
-            <div key={index} className="animate-pulse">
-              <div className="aspect-square w-full rounded-2xl border border-white/[0.08] bg-velora-card" />
-              <div className="space-y-2 px-1 pt-2">
-                <div className="h-3 w-3/4 rounded bg-velora-card" />
-                <div className="h-2.5 w-1/3 rounded bg-velora-card" />
-              </div>
-            </div>
+            <CardSkeleton key={index} />
           ))}
         </div>
       )}

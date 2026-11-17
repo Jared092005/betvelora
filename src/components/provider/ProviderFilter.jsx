@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { listByType, listCategoryBrands } from '../../api/games'
 import { useLanguage } from '../../i18n'
+import Spinner from '../spinners/Spinner'
 
 const BRAND_BASE =
   'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all cursor-pointer shrink-0 min-w-[46%] sm:min-w-[32%] lg:min-w-0 lg:w-full border'
@@ -94,10 +95,7 @@ export default function ProviderFilter({
 
         {status === 'loading' && (
           <div className="flex w-full items-center justify-center gap-2.5 px-3 py-5 lg:py-6">
-            <span
-              aria-hidden="true"
-              className="h-4 w-4 animate-spin rounded-full border-2 border-velora-gold/25 border-t-velora-gold"
-            />
+            <Spinner size="sm" />
             <span className="text-xs text-slate-400">
               {isEs ? 'Buscando proveedores…' : 'Searching providers…'}
             </span>

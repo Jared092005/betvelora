@@ -18,6 +18,10 @@ export { ProviderFilter, ProviderGamesCarousel } from './provider'
 // Home
 export { HomePromos } from './home'
 
+// Spinners y skeletons
+export { Spinner, AppLoader } from './spinners'
+export { Skeleton, CardSkeleton, CarouselSkeleton } from './skeleton'
+
 // Cuenta
 export { default as AccountLayout } from './account/AccountLayout.jsx'
 export { default as AccountSection } from './account/AccountSection.jsx'

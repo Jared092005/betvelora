@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLanguage } from '../../i18n'
+import Spinner from '../spinners/Spinner'
 
 /**
  * Carga más juegos automáticamente al acercarse al final de la página.
@@ -31,10 +32,7 @@ export default function InfiniteScrollSentinel({ hasMore, onLoad, disabled = fal
 
   return (
     <div ref={ref} className="flex flex-col items-center justify-center gap-2 py-8" role="status">
-      <span
-        aria-hidden="true"
-        className="h-5 w-5 animate-spin rounded-full border-2 border-velora-gold/25 border-t-velora-gold"
-      />
+      <Spinner size="md" />
       <span className="text-[11px] font-medium uppercase tracking-wider text-slate-500">
         {isEs ? 'Cargando más juegos…' : 'Loading more games…'}
       </span>

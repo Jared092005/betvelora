@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components'
+import AppLoader from './components/spinners/AppLoader'
 import {
   Home,
   Casino,
@@ -28,7 +29,9 @@ import {
 
 function App() {
   return (
-    <Routes>
+    <>
+      <AppLoader />
+      <Routes>
       {/* Todas las rutas comparten Header + Footer + ScrollToTop */}
       <Route element={<Layout />}>
         {/* La home vive en "/" y "/home" redirige a ella */}
@@ -63,6 +66,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+    </>
   )
 }
 

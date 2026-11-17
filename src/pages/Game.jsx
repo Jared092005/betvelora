@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getGame, listByProvider } from '../api/games'
 import ProviderGamesCarousel from '../components/provider/ProviderGamesCarousel'
+import Skeleton from '../components/skeleton/Skeleton'
+import CardSkeleton from '../components/skeleton/CardSkeleton'
 import { useLanguage } from '../i18n'
 
 /**
@@ -315,7 +317,7 @@ function GameScreen({ gameId }) {
                   className={`h-full w-full ${expanded ? 'object-contain' : 'object-cover'}`}
                 />
               ) : (
-                <div className="h-full w-full animate-pulse bg-[#181a20]" />
+                <Skeleton className="h-full w-full rounded-none bg-[#181a20]" />
               )}
 
               {isExpanded && (
@@ -398,16 +400,10 @@ function GameScreen({ gameId }) {
             ) : (
               <div className="flex gap-3.5 overflow-hidden sm:gap-5 lg:gap-4">
                 {Array.from({ length: 5 }).map((_, index) => (
-                  <div
+                  <CardSkeleton
                     key={index}
-                    className="w-[45%] shrink-0 animate-pulse sm:w-[30%] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
-                  >
-                    <div className="aspect-square w-full rounded-2xl border border-white/[0.08] bg-[#181a20]" />
-                    <div className="space-y-2 px-1 pt-2">
-                      <div className="h-3 w-3/4 rounded bg-white/10" />
-                      <div className="h-2.5 w-1/3 rounded bg-white/5" />
-                    </div>
-                  </div>
+                    className="w-[45%] shrink-0 sm:w-[30%] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
+                  />
                 ))}
               </div>
             )}
