@@ -20,7 +20,7 @@ export default function InfiniteScrollSentinel({ hasMore, onLoad, disabled = fal
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) onLoad()
       },
-      { rootMargin: '500px 0px' },
+      { rootMargin: '0px 0px' },
     )
 
     observer.observe(node)

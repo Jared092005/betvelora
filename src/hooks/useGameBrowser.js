@@ -17,8 +17,8 @@ const ALLOWED_TYPES = {
   poker: ['POKER'],
 }
 
-const PAGE_SIZE = 100
-const INITIAL_VISIBLE = 24
+const PAGE_SIZE = 40
+const INITIAL_VISIBLE = 12
 
 function dedupeById(list) {
   const seen = new Set()
