@@ -7,10 +7,11 @@ const OPTIONS = [
   { code: 'en', label: 'English', flag: 'en' },
 ]
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ variant = 'compact' }) {
   const { language, setLanguage } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const containerRef = useRef(null)
+  const isFull = variant === 'full'
 
   useEffect(() => {
     if (!isOpen) return undefined
@@ -40,7 +41,7 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="relative" ref={containerRef} data-no-translate>
+    <div className={isFull ? 'relative w-full' : 'relative'} ref={containerRef} data-no-translate>
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
@@ -48,24 +49,44 @@ export default function LanguageSwitcher() {
         aria-expanded={isOpen}
         aria-label="Seleccionar idioma"
         title="Idioma / Language"
-        className="flex h-10 cursor-pointer items-center gap-2 rounded-full border border-velora-borderSubtle bg-velora-surface px-3 text-slate-300 transition-all hover:border-velora-gold/40 hover:text-white"
+        className={
+          isFull
+            ? 'flex h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-xl border border-velora-borderSubtle bg-velora-surface px-3 text-slate-300 transition-all hover:border-velora-gold/40 hover:text-white'
+            : 'flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-velora-borderSubtle bg-velora-surface text-slate-300 transition-all hover:border-velora-gold/40 hover:text-white sm:w-auto sm:gap-2 sm:px-3'
+        }
       >
-        <Flag code={current.flag} className="h-3.5 w-5 rounded-[2px]" />
-        <span className="hidden text-[11px] font-bold uppercase tracking-wider sm:inline">
-          {current.code}
+        {/* Compacto: en móvil solo el globo, sin flecha */}
+        {!isFull && (
+          <span className="sm:hidden">
+            <i className="fa-solid fa-globe text-sm" aria-hidden="true" />
+          </span>
+        )}
+        <span
+          className={
+            isFull
+              ? 'flex min-w-0 items-center gap-2'
+              : 'hidden items-center gap-2 sm:flex'
+          }
+        >
+          <Flag code={current.flag} className="h-3.5 w-5 rounded-[2px]" />
+          <span className="text-[11px] font-bold uppercase tracking-wider">
+            {current.code}
+          </span>
+          <i
+            className={`fa-solid fa-chevron-down text-[9px] transition-transform duration-200 ${
+              isOpen ? 'rotate-180' : ''
+            }`}
+          />
         </span>
-        <i
-          className={`fa-solid fa-chevron-down text-[9px] transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
       </button>
 
       {isOpen && (
         <ul
           role="listbox"
           aria-label="Idioma"
-          className="absolute right-0 top-full z-50 mt-2 w-44 overflow-hidden rounded-xl border border-velora-borderSubtle bg-[#0A0C13] py-1 shadow-2xl"
+          className={`absolute z-50 overflow-hidden rounded-xl border border-velora-borderSubtle bg-[#0A0C13] py-1 shadow-2xl ${
+            isFull ? 'bottom-full left-0 mb-2 w-full' : 'left-0 top-full mt-2 w-44'
+          }`}
         >
           {OPTIONS.map((option) => {
             const isSelected = option.code === language

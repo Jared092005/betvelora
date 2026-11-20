@@ -1,5 +1,5 @@
 // Layout
-export { Layout, AppBackground, Header, Footer, PageShell, Flag, LanguageSwitcher, ScrollToTop } from './layout'
+export { Layout, AppBackground, Header, Footer, PageShell, Flag, LanguageSwitcher, ScrollToTop, MobileNavDrawer } from './layout'
 
 // Juegos
 export {

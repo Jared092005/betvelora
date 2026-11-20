@@ -3,6 +3,7 @@ import Header from './Header'
 import Footer from './Footer'
 import ScrollToTop from './ScrollToTop'
 import AppBackground from './AppBackground'
+import MobileNavDrawer from './MobileNavDrawer'
 
 /**
  * Layout compartido de la aplicación.
@@ -19,18 +20,25 @@ export default function Layout() {
   const isAuthScreen =
     pathname.startsWith('/auth') || pathname === '/login' || pathname === '/register'
   const hideChrome = isGameScreen || isAuthScreen
+  const showChrome = !hideChrome
 
   return (
-    <div className="app-shell flex min-h-screen flex-col text-slate-200">
+    <div
+      className={`app-shell flex min-h-screen flex-col text-slate-200 ${
+        // Espacio para la barra inferior fija en móvil/tablet
+        showChrome ? 'pb-[calc(65px_+_env(safe-area-inset-bottom))] lg:pb-0' : ''
+      }`}
+    >
       <AppBackground />
       <ScrollToTop />
-      {!hideChrome && <Header />}
+      {showChrome && <Header />}
 
       <main className="flex-1">
         <Outlet />
       </main>
 
-      {!hideChrome && <Footer />}
+      {showChrome && <Footer />}
+      {showChrome && <MobileNavDrawer />}
     </div>
   )
 }

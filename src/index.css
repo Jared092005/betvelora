@@ -291,6 +291,35 @@
 }
 
 /* ============================================================
+   Drawer lateral de navegación (móvil y tablet)
+   ============================================================ */
+@keyframes velora-drawer-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes velora-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.velora-drawer {
+  animation: velora-drawer-in 0.25s ease-out;
+}
+
+.velora-drawer-backdrop {
+  animation: velora-fade-in 0.2s ease-out;
+}
+
+/* ============================================================
    Accesibilidad: respeta "reducir movimiento"
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
