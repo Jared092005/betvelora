@@ -1,13 +1,9 @@
 import { useEffect, useRef } from 'react'
+import Skeleton from '../skeleton/Skeleton'
 
 const WINNERS_INTERVAL_MS = 4000
 const WINNERS_GAP_PX = 16
-const FALLBACK_GRADIENTS = [
-  'from-[#2a0a12] to-[#141722]',
-  'from-[#2a220a] to-[#141722]',
-  'from-[#0f2a1a] to-[#141722]',
-  'from-[#14112a] to-[#141722]',
-]
+
 
 /**
  * Sección "Top Winners of the Month" reutilizable.
@@ -108,13 +104,7 @@ export default function TopWinnersOfTheMonth({ winners = [], games = [] }) {
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (
-                    <div
-                      className={`flex h-full w-full items-center justify-center bg-gradient-to-br ${
-                        FALLBACK_GRADIENTS[index % FALLBACK_GRADIENTS.length]
-                      }`}
-                    >
-                      <i className="fa-solid fa-dice text-lg text-velora-gold/40" />
-                    </div>
+                    <Skeleton className='h-full w-full'/>
                   )}
                 </div>
 
